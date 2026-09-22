@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hệ Thống Quản Lý & Sinh Đề Hóa Học (Hoàn Thiện 2025)</title>
+    <title>Hệ Thống Quản Lý & Sinh Đề Hóa Học (Offline Hoàn Thiện)</title>
     
     <!-- CSS Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Thư viện LocalForage (Lưu trữ hàng GB thay cho 5MB cũ) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/localforage/1.10.0/localforage.min.js"></script>
     
     <!-- Bắt lỗi toàn cục để chống sập giao diện -->
     <script>
@@ -48,6 +51,7 @@
             body { background: white; margin: 0; padding: 0; -webkit-print-color-adjust: exact; }
             .no-print { display: none !important; }
             .exam-container { box-shadow: none !important; padding: 0 !important; border: none !important; width: 100% !important; }
+            /* Ép khối không vỡ trang */
             .question-block { page-break-inside: avoid !important; break-inside: avoid-page !important; margin-bottom: 20px; }
             .print-break-page { page-break-before: always !important; break-before: page !important; }
             .standalone-img { max-width: 80% !important; page-break-inside: avoid; }
@@ -65,7 +69,7 @@
                 </div>
                 <div>
                     <h1 class="text-xl font-bold">Hệ Thống Sinh Đề Thi Hóa Học</h1>
-                    <p class="text-sm text-indigo-200">Quản Lý Ngân Hàng Đề Tiên Tiến Nhất</p>
+                    <p class="text-sm text-indigo-200">Phiên bản Offline Hoàn Toàn | Lưu trực tiếp trên máy</p>
                 </div>
             </div>
             <nav class="flex flex-wrap items-center justify-center gap-2">
@@ -147,7 +151,8 @@
                     </div>
                 </div>
 
-                <div class="mb-2 flex flex-wrap gap-1 bg-slate-100 p-2 rounded-t-lg border border-slate-300 items-center justify-start">
+                <!-- Thanh công cụ -->
+                <div class="mb-2 flex flex-wrap gap-1 bg-slate-100 p-2 rounded-t-lg border border-slate-300 items-center">
                     <button type="button" onclick="formatText('bold')" class="px-2 py-1 bg-white border rounded font-bold hover:bg-slate-50 shadow-sm" title="In đậm"><i class="fas fa-bold"></i></button>
                     <button type="button" onclick="formatText('italic')" class="px-2 py-1 bg-white border rounded italic hover:bg-slate-50 shadow-sm" title="In nghiêng"><i class="fas fa-italic"></i></button>
                     <button type="button" onclick="formatText('underline')" class="px-2 py-1 bg-white border rounded underline hover:bg-slate-50 shadow-sm" title="Gạch chân"><i class="fas fa-underline"></i></button>
@@ -170,14 +175,14 @@
                     <button type="button" onclick="insertChemicalSymbol('↑')" class="px-2 py-1 bg-white border rounded font-bold text-indigo-700 hover:bg-indigo-50 shadow-sm" title="Bay lên">↑</button>
                     <span class="border-r mx-1 h-5 border-slate-300"></span>
 
-                    <!-- Các loại liên kết Hóa học -->
-                    <button type="button" onclick="insertChemicalSymbol('—')" class="px-2 py-1 bg-white border rounded font-black text-emerald-700 hover:bg-emerald-50 shadow-sm" title="Liên kết đơn">—</button>
+                    <!-- Các loại liên kết -->
+                    <button type="button" onclick="insertChemicalSymbol('-')" class="px-2 py-1 bg-white border rounded font-black text-emerald-700 hover:bg-emerald-50 shadow-sm" title="Liên kết đơn">—</button>
                     <button type="button" onclick="insertChemicalSymbol('=')" class="px-2 py-1 bg-white border rounded font-black text-emerald-700 hover:bg-emerald-50 shadow-sm" title="Liên kết đôi">=</button>
                     <button type="button" onclick="insertChemicalSymbol('≡')" class="px-2 py-1 bg-white border rounded font-black text-emerald-700 hover:bg-emerald-50 shadow-sm" title="Liên kết ba">≡</button>
                     <span class="border-r mx-1 h-5 border-slate-300"></span>
 
-                    <!-- Ký tự đặc biệt & Hy Lạp đầy đủ -->
-                    <select onchange="insertSpecialChar(this.value); this.selectedIndex=0;" class="px-2 py-1 bg-white border rounded font-bold text-slate-700 hover:bg-slate-50 shadow-sm cursor-pointer focus:outline-none min-w-[140px]">
+                    <!-- Ký tự đặc biệt & Hy Lạp -->
+                    <select onchange="insertSpecialChar(this.value); this.selectedIndex=0;" class="px-2 py-1 bg-white border rounded font-bold text-slate-700 hover:bg-slate-50 shadow-sm cursor-pointer focus:outline-none max-w-[150px]">
                         <option value="">Kí tự đặc biệt</option>
                         <option value="°">° (Độ)</option><option value="≈">≈ (Xấp xỉ)</option><option value="±">± (Cộng trừ)</option>
                         <optgroup label="Bảng chữ cái Hy Lạp">
@@ -199,7 +204,7 @@
                 </div>
 
                 <div class="mb-4 relative">
-                    <label class="block text-sm font-bold mb-1">Nội dung dẫn chính (hoặc lời dẫn trước đồ thị) <span class="text-xs text-indigo-500 font-normal ml-2 italic">(💡 Mẹo: Nhấp đúp vào ảnh dán để thu phóng)</span></label>
+                    <label class="block text-sm font-bold mb-1">Nội dung dẫn chính (hoặc lời dẫn trước đồ thị) <span class="text-xs text-indigo-500 font-normal ml-2 italic">(💡 Mẹo: Nhấp đúp vào ảnh chèn để thu phóng)</span></label>
                     <div id="q-content" contenteditable="true" class="editor-content w-full border border-slate-300 rounded-b-lg p-3 min-h-[70px] bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500" oninput="queueLivePreview()"></div>
                 </div>
 
@@ -207,20 +212,20 @@
                 <div class="mb-4 border-2 border-dashed border-emerald-400 rounded-lg p-4 bg-emerald-50/30">
                     <div class="flex flex-wrap justify-between items-center mb-2 gap-2">
                         <label class="block text-sm font-bold text-emerald-700">
-                            <i class="fas fa-images"></i> Khu vực Ảnh Đồ thị / Sơ đồ (Tối đa 4 ảnh)
+                            <i class="fas fa-images"></i> Khu vực Ảnh Đồ thị / Sơ đồ TO (Tối đa 4 ảnh)
                         </label>
                         <div id="standalone-layout-select" class="hidden flex items-center space-x-4">
                             <div class="flex items-center space-x-1">
-                                <span class="text-xs font-bold text-slate-600" title="Thu phóng ảnh">Kích thước:</span>
+                                <span class="text-xs font-bold text-slate-600" title="Thu phóng ảnh">Cỡ:</span>
                                 <input type="range" id="scale-selector" min="20" max="100" value="100" class="w-20" oninput="updateStandaloneLayout(); document.getElementById('scale-val').textContent = this.value + '%'">
                                 <span id="scale-val" class="text-xs font-bold text-emerald-700 w-8 text-right">100%</span>
                             </div>
                             <div class="flex items-center space-x-1">
                                 <span class="text-xs font-bold text-slate-600">Bố cục:</span>
                                 <select id="layout-selector" onchange="updateStandaloneLayout()" class="text-sm border border-slate-300 rounded px-2 py-1 font-bold bg-white focus:ring-2 focus:ring-emerald-500">
-                                    <option value="row">Ngang (Cạnh nhau)</option>
-                                    <option value="col">Dọc (Trên - Dưới)</option>
-                                    <option value="grid">Lưới vuông (2x2)</option>
+                                    <option value="row">Ngang</option>
+                                    <option value="col">Dọc</option>
+                                    <option value="grid">Lưới (2x2)</option>
                                 </select>
                             </div>
                         </div>
@@ -235,7 +240,7 @@
                 </div>
 
                 <div class="mb-4 relative">
-                    <label class="block text-sm font-bold mb-1 text-indigo-700"><i class="fas fa-pen-nib"></i> Nội dung câu hỏi tiếp theo (nằm dưới đồ thị / sơ đồ) <span class="text-xs font-normal ml-2 italic text-slate-500">(💡 Mẹo: Nhấp đúp vào ảnh dán để thu phóng)</span></label>
+                    <label class="block text-sm font-bold mb-1 text-indigo-700"><i class="fas fa-pen-nib"></i> Nội dung câu hỏi tiếp theo (nằm dưới đồ thị / sơ đồ) <span class="text-xs font-normal ml-2 italic text-slate-500">(💡 Mẹo: Nhấp đúp vào ảnh chèn để thu phóng)</span></label>
                     <div id="q-sub-content" contenteditable="true" class="editor-content w-full border border-slate-300 rounded-lg p-3 min-h-[60px] bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-inner" oninput="queueLivePreview()" placeholder="Nhập câu hỏi dựa vào đồ thị ở trên..."></div>
                 </div>
 
@@ -262,7 +267,7 @@
                             <span class="text-sm font-bold text-slate-700 whitespace-nowrap">Chọn tất cả</span>
                         </label>
                         
-                        <!-- Các nút Xuất / Nhập -->
+                        <!-- Các nút tương tác -->
                         <button onclick="exportBackup()" class="px-3 py-1.5 rounded bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm flex items-center shadow-sm transition whitespace-nowrap" title="Chỉ sao lưu những câu đã tick chọn">
                             <i class="fas fa-download mr-1"></i> Xuất file
                         </button>
@@ -273,27 +278,22 @@
                     </div>
 
                     <div class="flex flex-wrap items-center gap-2 w-full xl:w-auto justify-center xl:justify-end">
-                        <div class="flex items-center gap-2 bg-white px-2 py-1.5 rounded-lg border border-slate-200 shadow-sm">
-                            <span class="text-xs font-bold text-slate-500 uppercase ml-1"><i class="fas fa-filter"></i> Lọc:</span>
-                            <select id="filter-grade" onchange="updateFilterChapter(); renderQuestionList()" class="border border-slate-300 rounded px-2 py-1 font-bold bg-white text-sm focus:ring-2 focus:ring-indigo-500">
-                                <option value="">Tất cả khối</option>
-                                <option value="10">Lớp 10</option>
-                                <option value="11">Lớp 11</option>
-                                <option value="12">Lớp 12</option>
-                            </select>
-                            <select id="filter-chapter" onchange="renderQuestionList()" class="border border-slate-300 rounded px-2 py-1 font-bold bg-white text-sm hidden focus:ring-2 focus:ring-indigo-500 max-w-[200px] truncate">
-                                <option value="">Tất cả chương</option>
-                            </select>
-                            
-                            <div class="h-5 w-px bg-slate-300 mx-1"></div>
-                            
-                            <i class="fas fa-sort-amount-down text-purple-600"></i>
-                            <select id="sort-option" onchange="triggerSort()" class="border-none bg-transparent font-bold text-sm text-purple-800 focus:ring-0 cursor-pointer outline-none">
-                                <option value="standard">Chuẩn (Khối ➔ Chương)</option>
-                                <option value="newest">Mới nhất trước</option>
-                                <option value="oldest">Cũ nhất trước</option>
-                            </select>
-                        </div>
+                        <span class="text-xs font-bold text-slate-500 uppercase whitespace-nowrap"><i class="fas fa-filter mr-1"></i> Lọc & Sắp xếp:</span>
+                        <select id="filter-grade" onchange="updateFilterChapter(); renderQuestionList()" class="border border-slate-300 rounded px-2 py-1.5 font-bold bg-white text-sm focus:ring-2 focus:ring-indigo-500">
+                            <option value="">Tất cả khối</option>
+                            <option value="10">Lớp 10</option>
+                            <option value="11">Lớp 11</option>
+                            <option value="12">Lớp 12</option>
+                        </select>
+                        <select id="filter-chapter" onchange="renderQuestionList()" class="border border-slate-300 rounded px-2 py-1.5 font-bold bg-white text-sm hidden focus:ring-2 focus:ring-indigo-500 max-w-[200px] truncate">
+                            <option value="">Tất cả chương</option>
+                        </select>
+                        
+                        <div class="h-6 w-px bg-slate-300 mx-1 hidden sm:block"></div>
+                        
+                        <button onclick="triggerSort()" class="px-3 py-1.5 rounded bg-purple-600 hover:bg-purple-700 text-white font-bold text-sm flex items-center shadow-sm transition whitespace-nowrap" title="Xếp lại toàn bộ kho theo chuẩn: Khối -> Chương -> Độ khó">
+                            <i class="fas fa-sort-amount-down-alt mr-1"></i> Sắp xếp chuẩn
+                        </button>
                     </div>
                 </div>
                 <div id="question-list-container" class="space-y-4 max-h-[600px] overflow-y-auto pr-2 custom-scroll border-t border-slate-200 pt-4"></div>
@@ -445,7 +445,7 @@
     </main>
 
     <!-- Modal Thông Báo -->
-    <div id="custom-modal" class="fixed inset-0 bg-slate-900/60 z-[80] flex items-center justify-center hidden">
+    <div id="custom-modal" class="fixed inset-0 bg-slate-900/60 z-[100] flex items-center justify-center hidden">
         <div class="bg-white rounded-xl shadow-2xl p-6 max-w-sm w-full mx-4 border text-center space-y-4">
             <h3 id="modal-title" class="font-bold text-xl mb-1 text-indigo-700">Thông báo</h3>
             <p id="modal-message" class="text-sm font-semibold text-slate-600 whitespace-pre-wrap">Nội dung...</p>
@@ -460,8 +460,8 @@
     <div id="resize-modal" class="fixed inset-0 bg-slate-900/60 z-[90] flex items-center justify-center hidden">
         <div class="bg-white rounded-xl shadow-2xl p-6 max-w-sm w-full mx-4 border text-center space-y-4">
             <h3 class="font-bold text-xl mb-1 text-indigo-700">Chỉnh kích thước ảnh</h3>
-            <p class="text-sm font-semibold text-slate-600">Nhập tỷ lệ % hiển thị của ảnh (0.1 - 100):</p>
-            <input type="number" id="resize-input" class="w-full border-2 border-indigo-200 rounded px-3 py-2 font-bold text-center focus:outline-none focus:border-indigo-500 text-lg" min="0.1" max="100" step="0.1" value="100">
+            <p class="text-sm font-semibold text-slate-600">Nhập tỷ lệ % hiển thị của ảnh (10 - 100):</p>
+            <input type="number" id="resize-input" class="w-full border-2 border-indigo-200 rounded px-3 py-2 font-bold text-center focus:outline-none focus:border-indigo-500 text-lg" min="10" max="100" value="100">
             <div class="flex justify-center space-x-3 pt-2">
                 <button onclick="closeResizeModal(false)" class="bg-slate-200 hover:bg-slate-300 font-bold px-6 py-2 rounded transition">Hủy</button>
                 <button onclick="closeResizeModal(true)" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-2 rounded shadow transition">Áp dụng</button>
@@ -473,7 +473,7 @@
     <div id="sync-modal" class="fixed inset-0 bg-slate-900/60 z-[90] flex items-center justify-center hidden">
         <div class="bg-white rounded-xl shadow-2xl p-6 max-w-md w-full mx-4 border space-y-4">
             <h3 class="font-bold text-xl mb-1 text-indigo-700 text-center"><i class="fab fa-github mr-2"></i>Đồng bộ lên GitHub</h3>
-            <p class="text-sm font-semibold text-slate-600 text-justify">Nhập thông tin kho lưu trữ GitHub của bạn để phần mềm đẩy trực tiếp ngân hàng đề lên mạng cho học sinh làm.</p>
+            <p class="text-sm font-semibold text-slate-600 text-justify">Nhập thông tin kho lưu trữ GitHub của bạn để phần mềm đẩy trực tiếp ngân hàng đề lên mạng.</p>
             
             <div>
                 <label class="block text-sm font-bold mb-1 text-slate-700">Tên Kho (Định dạng: tài-khoản/tên-kho)</label>
@@ -630,7 +630,7 @@
                     { code: "12.8.2", name: "Phức chất", yccd: "Nguyên tử trung tâm, phối tử, số phối trí, dạng hình học. Danh pháp. Phản ứng tạo phức (thế phối tử)." }
                 ]},
                 { id: "12_cd", name: "Chuyên đề học tập lớp 12", units: [ 
-                    { code: "12.CD.1", name: "Cơ chế phản ứng hữu cơ", yccd: "Phân cắt đồng li, dị li. Cơ chế phản ứng thế (SR, SE, SN). Cơ chế cộng (AE). Quy tắc Markovnikov." },
+                    { code: "12.CD.1", name: "Cơ机制 phản ứng hữu cơ", yccd: "Phân cắt đồng li, dị li. Cơ chế phản ứng thế (SR, SE, SN). Cơ chế cộng (AE). Quy tắc Markovnikov." },
                     { code: "12.CD.2", name: "Thực hành vô cơ (Ứng dụng)", yccd: "Công nghiệp silicate. Tái chế nhôm, sắt. Xử lí nước." },
                     { code: "12.CD.3", name: "Phức chất chuyên sâu", yccd: "Liên kết trong phức (VB). Đồng phân hình học phức chất. Vai trò trong sinh học, y học (cisplatin, hemoglobin)." }
                 ]}
@@ -645,7 +645,6 @@
         let targetImgToResize = null;
         
         let queuePromise = Promise.resolve();
-        
         window.triggerMathJax = function() {
             if (window.MathJax && MathJax.typesetPromise) {
                 queuePromise = queuePromise.then(() => {
@@ -653,7 +652,7 @@
                         document.getElementById('live-preview-box'), 
                         document.getElementById('question-list-container'), 
                         document.getElementById('exam-display-area')
-                    ]).catch(e => { /* Ignore ngắt quãng MathJax */ });
+                    ]).catch(e => { /* Ignore */ });
                 });
             }
         };
@@ -679,60 +678,63 @@
         }
         window.closeSyncModal = function() { document.getElementById('sync-modal').classList.add('hidden'); }
 
-        // Local Storage logic
-        let offlineData = [];
-        try {
-            offlineData = JSON.parse(localStorage.getItem('chem_question_bank'));
-            if (!Array.isArray(offlineData)) offlineData = [];
-        } catch(e) { offlineData = []; }
-        window.questionBank = offlineData.map(q => ({ ...q, id: String(q.id) }));
+        // ====== TÍCH HỢP LOCALFORAGE VÀ TỰ ĐỘNG SẮP XẾP ======
+        window.questionBank = [];
+        localforage.config({ name: 'ChemAppDB', storeName: 'questions' });
 
         const levelWeight = { "NhanBiet": 1, "ThongHieu": 2, "VanDung": 3, "VanDungCao": 4 };
 
         window.autoSortQuestionBank = function() {
-            const sortOptionEl = document.getElementById('sort-option');
-            const sortType = sortOptionEl ? sortOptionEl.value : 'standard';
-
             window.questionBank.sort((a, b) => {
-                if (sortType === 'newest') {
-                    let timeA = parseInt(String(a.id).split('_')[1]) || 0;
-                    let timeB = parseInt(String(b.id).split('_')[1]) || 0;
-                    return timeB - timeA;
-                } else if (sortType === 'oldest') {
-                    let timeA = parseInt(String(a.id).split('_')[1]) || 0;
-                    let timeB = parseInt(String(b.id).split('_')[1]) || 0;
-                    return timeA - timeB;
-                } else {
-                    if (a.grade !== b.grade) return parseInt(a.grade) - parseInt(b.grade);
-                    if (a.chapterId !== b.chapterId) {
-                        if (a.chapterId < b.chapterId) return -1;
-                        if (a.chapterId > b.chapterId) return 1;
-                        return 0;
-                    }
-                    return (levelWeight[a.level] || 0) - (levelWeight[b.level] || 0);
+                if (a.grade !== b.grade) return parseInt(a.grade) - parseInt(b.grade);
+                if (a.chapterId !== b.chapterId) {
+                    if (a.chapterId < b.chapterId) return -1;
+                    if (a.chapterId > b.chapterId) return 1;
+                    return 0;
                 }
+                return (levelWeight[a.level] || 0) - (levelWeight[b.level] || 0);
             });
         }
 
         window.triggerSort = async function() {
-            const sortOptionEl = document.getElementById('sort-option');
-            if (sortOptionEl) {
-                localStorage.setItem('chem_sort_pref', sortOptionEl.value);
-            }
             window.autoSortQuestionBank();
-            localStorage.setItem('chem_question_bank', JSON.stringify(window.questionBank));
+            await localforage.setItem('chem_question_bank', window.questionBank);
             renderQuestionList();
+            showModal("Đã sắp xếp lại ngân hàng câu hỏi chuẩn xác theo thứ tự:\nKhối lớp -> Chương -> Mức độ nhận thức.", "Sắp xếp hoàn tất");
         }
+
+        window.onload = async function() {
+            try {
+                let savedData = await localforage.getItem('chem_question_bank');
+                if (savedData && Array.isArray(savedData)) {
+                    window.questionBank = savedData.map(q => ({ ...q, id: String(q.id) }));
+                } else {
+                    let oldData = localStorage.getItem('chem_question_bank');
+                    if (oldData) {
+                        window.questionBank = JSON.parse(oldData);
+                        await localforage.setItem('chem_question_bank', window.questionBank);
+                        localStorage.removeItem('chem_question_bank'); 
+                    }
+                }
+                
+                updateChuyenDeOptions();
+                changeQuestionType();
+                renderMatrixChapters();
+                setupStandaloneImageZone();
+                addUniMatrixRow();
+                renderQuestionList();
+            } catch(e) { console.warn("Lỗi khởi tạo UI:", e); }
+        };
 
         window.saveQuestionToLocal = async function(qData) {
             try {
                 qData.id = String('Q_' + Date.now());
                 window.questionBank.push(qData);
                 window.autoSortQuestionBank();
-                localStorage.setItem('chem_question_bank', JSON.stringify(window.questionBank));
+                await localforage.setItem('chem_question_bank', window.questionBank);
                 return true;
             } catch (err) {
-                showModal('Lỗi lưu trữ! Có thể ảnh của bạn quá nặng vượt quá dung lượng trình duyệt cho phép. Vui lòng thử nén ảnh nhỏ hơn.', 'Lỗi Bộ Nhớ Máy');
+                showModal('Lỗi lưu trữ! Không thể ghi vào cơ sở dữ liệu.', 'Lỗi Bộ Nhớ Máy');
                 return false;
             }
         }
@@ -742,35 +744,21 @@
                 const idx = window.questionBank.findIndex(q => String(q.id) === String(id));
                 if (idx !== -1) window.questionBank[idx] = { ...qData, id: String(id) };
                 window.autoSortQuestionBank();
-                localStorage.setItem('chem_question_bank', JSON.stringify(window.questionBank));
+                await localforage.setItem('chem_question_bank', window.questionBank);
                 return true;
-            } catch (err) { showModal('Lỗi cập nhật. Dung lượng trình duyệt có thể đã đầy.', 'Lỗi Bộ Nhớ Máy'); return false; }
+            } catch (err) { 
+                showModal('Lỗi cập nhật! Không thể ghi vào cơ sở dữ liệu.', 'Lỗi Bộ Nhớ Máy'); 
+                return false; 
+            }
         }
         
         window.deleteQuestionFromLocal = async function(id) {
             window.questionBank = window.questionBank.filter(q => String(q.id) !== String(id));
-            localStorage.setItem('chem_question_bank', JSON.stringify(window.questionBank));
+            await localforage.setItem('chem_question_bank', window.questionBank);
             return true;
         }
 
-        window.onload = function() {
-            try {
-                // Khôi phục tùy chọn sắp xếp lần cuối
-                const savedSort = localStorage.getItem('chem_sort_pref');
-                const sortSelect = document.getElementById('sort-option');
-                if (savedSort && sortSelect) sortSelect.value = savedSort;
-
-                updateChuyenDeOptions();
-                changeQuestionType();
-                renderMatrixChapters();
-                setupStandaloneImageZone();
-                addUniMatrixRow();
-                
-                window.autoSortQuestionBank();
-                renderQuestionList();
-            } catch(e) { console.warn("Lỗi khởi tạo UI:", e); }
-        };
-
+        // ====== ĐỒNG BỘ GITHUB ======
         function utf8_to_b64(str) { return window.btoa(unescape(encodeURIComponent(str))); }
 
         window.syncToGitHub = async function() {
@@ -818,6 +806,7 @@
                 btn.innerHTML = '<i class="fas fa-sync-alt mr-2"></i> Lưu & Đồng bộ ngay'; btn.disabled = false;
             }
         }
+        // ===========================================
 
         function switchTab(tabId) {
             ['bank', 'matrix', 'university', 'exam'].forEach(t => {
@@ -979,8 +968,7 @@
                         if (items[i].type.indexOf("image") !== -1) {
                             e.preventDefault(); hasImageFile = true;
                             convertAndCompressImage(items[i].getAsFile(), (base64) => {
-                                // Mặc định ảnh dán vào lấp đầy 100% khung, cần thì resize sau
-                                document.execCommand('insertHTML', false, `<img src="${base64}" class="inline-img" style="width: 100%; max-width: 100%;" />`); queueLivePreview();
+                                document.execCommand('insertHTML', false, `<img src="${base64}" class="inline-img" />`); queueLivePreview();
                             });
                             break; 
                         }
@@ -1005,7 +993,7 @@
             if (e.target.tagName === 'IMG' && e.target.classList.contains('inline-img')) {
                 targetImgToResize = e.target;
                 let currentWidth = targetImgToResize.style.width || '100%';
-                let num = parseFloat(currentWidth);
+                let num = parseInt(currentWidth);
                 if (isNaN(num)) num = 100;
                 document.getElementById('resize-input').value = num;
                 document.getElementById('resize-modal').classList.remove('hidden');
@@ -1014,12 +1002,12 @@
 
         window.closeResizeModal = function(apply) {
             if (apply && targetImgToResize) {
-                let val = parseFloat(document.getElementById('resize-input').value);
-                if (val > 0 && val <= 100) {
+                let val = parseInt(document.getElementById('resize-input').value);
+                if (val >= 10 && val <= 100) {
                     targetImgToResize.style.width = val + '%';
                     queueLivePreview();
                 } else {
-                    showModal('Tỷ lệ không hợp lệ! Vui lòng nhập từ 0.1 đến 100.', 'Lỗi');
+                    showModal('Tỷ lệ không hợp lệ! Vui lòng nhập từ 10 đến 100.', 'Lỗi');
                     return;
                 }
             }
@@ -1201,11 +1189,11 @@
                     } else { window.questionBank = importedData; showModal('Đã khôi phục ngân hàng câu hỏi thành công!', 'Thành công'); }
                     
                     window.autoSortQuestionBank();
-                    localStorage.setItem('chem_question_bank', JSON.stringify(window.questionBank));
+                    await localforage.setItem('chem_question_bank', window.questionBank);
                     renderQuestionList();
                 } catch (err) { showModal('File backup không đúng định dạng JSON. Vui lòng kiểm tra lại!', 'Lỗi nhập dữ liệu'); }
                 
-                inputEl.value = ''; // Reset input
+                inputEl.value = ''; // Reset input để có thể nhập lại cùng 1 file nhiều lần
             };
             reader.readAsText(file);
         }

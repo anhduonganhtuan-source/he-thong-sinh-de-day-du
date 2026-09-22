@@ -204,7 +204,7 @@
                 </div>
 
                 <div class="mb-4 relative">
-                    <label class="block text-sm font-bold mb-1">Nội dung dẫn chính (hoặc lời dẫn trước đồ thị)</label>
+                    <label class="block text-sm font-bold mb-1">Nội dung dẫn chính (hoặc lời dẫn trước đồ thị) <span class="text-xs text-indigo-500 font-normal ml-2 italic">(💡 Mẹo: Nhấp đúp vào ảnh chèn để thu phóng)</span></label>
                     <div id="q-content" contenteditable="true" class="editor-content w-full border border-slate-300 rounded-b-lg p-3 min-h-[70px] bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500" oninput="queueLivePreview()"></div>
                 </div>
 
@@ -214,13 +214,20 @@
                         <label class="block text-sm font-bold text-emerald-700">
                             <i class="fas fa-images"></i> Khu vực Ảnh Đồ thị / Sơ đồ TO (Tối đa 4 ảnh)
                         </label>
-                        <div id="standalone-layout-select" class="hidden flex items-center space-x-2">
-                            <span class="text-xs font-bold text-slate-600">Bố cục sắp xếp ảnh:</span>
-                            <select id="layout-selector" onchange="updateStandaloneLayout()" class="text-sm border border-slate-300 rounded px-2 py-1 font-bold bg-white focus:ring-2 focus:ring-emerald-500">
-                                <option value="row">Ngang (Cạnh nhau)</option>
-                                <option value="col">Dọc (Trên - Dưới)</option>
-                                <option value="grid">Lưới vuông (2x2)</option>
-                            </select>
+                        <div id="standalone-layout-select" class="hidden flex items-center space-x-4">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-xs font-bold text-slate-600" title="Thu phóng ảnh">Cỡ:</span>
+                                <input type="range" id="scale-selector" min="20" max="100" value="100" class="w-20" oninput="updateStandaloneLayout(); document.getElementById('scale-val').textContent = this.value + '%'">
+                                <span id="scale-val" class="text-xs font-bold text-emerald-700 w-8 text-right">100%</span>
+                            </div>
+                            <div class="flex items-center space-x-1">
+                                <span class="text-xs font-bold text-slate-600">Bố cục:</span>
+                                <select id="layout-selector" onchange="updateStandaloneLayout()" class="text-sm border border-slate-300 rounded px-2 py-1 font-bold bg-white focus:ring-2 focus:ring-emerald-500">
+                                    <option value="row">Ngang</option>
+                                    <option value="col">Dọc</option>
+                                    <option value="grid">Lưới (2x2)</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
 
@@ -233,7 +240,7 @@
                 </div>
 
                 <div class="mb-4 relative">
-                    <label class="block text-sm font-bold mb-1 text-indigo-700"><i class="fas fa-pen-nib"></i> Nội dung câu hỏi tiếp theo (nằm dưới đồ thị / sơ đồ)</label>
+                    <label class="block text-sm font-bold mb-1 text-indigo-700"><i class="fas fa-pen-nib"></i> Nội dung câu hỏi tiếp theo (nằm dưới đồ thị / sơ đồ) <span class="text-xs font-normal ml-2 italic text-slate-500">(💡 Mẹo: Nhấp đúp vào ảnh chèn để thu phóng)</span></label>
                     <div id="q-sub-content" contenteditable="true" class="editor-content w-full border border-slate-300 rounded-lg p-3 min-h-[60px] bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-inner" oninput="queueLivePreview()" placeholder="Nhập câu hỏi dựa vào đồ thị ở trên..."></div>
                 </div>
 
@@ -438,7 +445,7 @@
     </main>
 
     <!-- Modal Thông Báo -->
-    <div id="custom-modal" class="fixed inset-0 bg-slate-900/60 z-[80] flex items-center justify-center hidden">
+    <div id="custom-modal" class="fixed inset-0 bg-slate-900/60 z-[100] flex items-center justify-center hidden">
         <div class="bg-white rounded-xl shadow-2xl p-6 max-w-sm w-full mx-4 border text-center space-y-4">
             <h3 id="modal-title" class="font-bold text-xl mb-1 text-indigo-700">Thông báo</h3>
             <p id="modal-message" class="text-sm font-semibold text-slate-600 whitespace-pre-wrap">Nội dung...</p>
@@ -449,30 +456,39 @@
         </div>
     </div>
 
-    <!-- Modal Cấu hình Đồng bộ GitHub -->
+    <!-- Modal Resize Ảnh -->
+    <div id="resize-modal" class="fixed inset-0 bg-slate-900/60 z-[90] flex items-center justify-center hidden">
+        <div class="bg-white rounded-xl shadow-2xl p-6 max-w-sm w-full mx-4 border text-center space-y-4">
+            <h3 class="font-bold text-xl mb-1 text-indigo-700">Chỉnh kích thước ảnh</h3>
+            <p class="text-sm font-semibold text-slate-600">Nhập tỷ lệ % hiển thị của ảnh (10 - 100):</p>
+            <input type="number" id="resize-input" class="w-full border-2 border-indigo-200 rounded px-3 py-2 font-bold text-center focus:outline-none focus:border-indigo-500 text-lg" min="10" max="100" value="100">
+            <div class="flex justify-center space-x-3 pt-2">
+                <button onclick="closeResizeModal(false)" class="bg-slate-200 hover:bg-slate-300 font-bold px-6 py-2 rounded transition">Hủy</button>
+                <button onclick="closeResizeModal(true)" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-2 rounded shadow transition">Áp dụng</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Đồng Bộ GitHub -->
     <div id="sync-modal" class="fixed inset-0 bg-slate-900/60 z-[90] flex items-center justify-center hidden">
         <div class="bg-white rounded-xl shadow-2xl p-6 max-w-md w-full mx-4 border space-y-4">
-            <h3 class="font-black text-xl mb-1 text-slate-800 flex items-center"><i class="fab fa-github text-2xl mr-2"></i> Cấu hình Đồng bộ GitHub</h3>
-            <p class="text-sm font-semibold text-slate-500 mb-4">Kết nối thẳng phần mềm này với Kho chứa đề thi của bạn.</p>
+            <h3 class="font-bold text-xl mb-1 text-indigo-700 text-center"><i class="fab fa-github mr-2"></i>Đồng bộ lên GitHub</h3>
+            <p class="text-sm font-semibold text-slate-600 text-justify">Nhập thông tin kho lưu trữ GitHub của bạn để phần mềm đẩy trực tiếp ngân hàng đề lên mạng.</p>
             
-            <div class="space-y-3">
-                <div>
-                    <label class="block text-sm font-bold text-slate-700 mb-1">Tài khoản / Tên Kho (Repository)</label>
-                    <input type="text" id="gh-repo" placeholder="Ví dụ: anhduonganhtuan-source/he-thong-luyen-de" class="w-full border-2 border-slate-200 rounded-lg px-3 py-2 font-bold focus:border-indigo-500 outline-none text-sm">
-                </div>
-                <div>
-                    <label class="block text-sm font-bold text-slate-700 mb-1">Mã bí mật (Personal Access Token)</label>
-                    <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxxxx..." class="w-full border-2 border-slate-200 rounded-lg px-3 py-2 font-bold focus:border-indigo-500 outline-none text-sm">
-                </div>
+            <div>
+                <label class="block text-sm font-bold mb-1 text-slate-700">Tên Kho (Định dạng: tài-khoản/tên-kho)</label>
+                <input type="text" id="gh-repo" placeholder="VD: anhduonganhtuan-source/he-thong-luyen-de" class="w-full border-2 border-slate-200 rounded px-3 py-2 font-bold focus:outline-none focus:border-indigo-500">
             </div>
-
-            <div class="p-3 bg-amber-50 border border-amber-200 rounded-lg mt-4">
-                <p class="text-xs font-bold text-amber-800"><i class="fas fa-info-circle mr-1"></i> Thông tin này chỉ lưu cục bộ trên máy bạn, tuyệt đối an toàn. Chức năng này sẽ tự động ghi đè file "data.json" lên kho của bạn chỉ với 1 cú click.</p>
+            <div>
+                <label class="block text-sm font-bold mb-1 text-slate-700">Mã Token (Personal Access Token)</label>
+                <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxx..." class="w-full border-2 border-slate-200 rounded px-3 py-2 font-bold focus:outline-none focus:border-indigo-500">
             </div>
-
-            <div class="flex justify-end space-x-3 pt-4 border-t mt-4">
-                <button onclick="closeSyncModal()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-5 py-2.5 rounded-lg transition">Đóng</button>
-                <button onclick="syncToGitHub()" id="btn-do-sync" class="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-black px-6 py-2.5 rounded-lg shadow-lg transition flex items-center"><i class="fas fa-sync-alt mr-2"></i> Lưu & Đồng bộ ngay</button>
+            
+            <div class="flex justify-center space-x-3 pt-4 border-t border-slate-200 mt-4">
+                <button onclick="closeSyncModal()" class="bg-slate-200 hover:bg-slate-300 font-bold px-6 py-2 rounded transition">Hủy</button>
+                <button id="btn-do-sync" onclick="syncToGitHub()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-2 rounded shadow transition flex items-center">
+                    <i class="fas fa-sync-alt mr-2"></i> Lưu & Đồng bộ ngay
+                </button>
             </div>
         </div>
     </div>
@@ -614,7 +630,7 @@
                     { code: "12.8.2", name: "Phức chất", yccd: "Nguyên tử trung tâm, phối tử, số phối trí, dạng hình học. Danh pháp. Phản ứng tạo phức (thế phối tử)." }
                 ]},
                 { id: "12_cd", name: "Chuyên đề học tập lớp 12", units: [ 
-                    { code: "12.CD.1", name: "Cơ chế phản ứng hữu cơ", yccd: "Phân cắt đồng li, dị li. Cơ chế phản ứng thế (SR, SE, SN). Cơ chế cộng (AE). Quy tắc Markovnikov." },
+                    { code: "12.CD.1", name: "Cơ机制 phản ứng hữu cơ", yccd: "Phân cắt đồng li, dị li. Cơ chế phản ứng thế (SR, SE, SN). Cơ chế cộng (AE). Quy tắc Markovnikov." },
                     { code: "12.CD.2", name: "Thực hành vô cơ (Ứng dụng)", yccd: "Công nghiệp silicate. Tái chế nhôm, sắt. Xử lí nước." },
                     { code: "12.CD.3", name: "Phức chất chuyên sâu", yccd: "Liên kết trong phức (VB). Đồng phân hình học phức chất. Vai trò trong sinh học, y học (cisplatin, hemoglobin)." }
                 ]}
@@ -625,6 +641,8 @@
         let editingQuestionId = null; 
         let currentStandaloneImages = []; 
         let currentStandaloneLayout = 'row';
+        let currentStandaloneScale = 100;
+        let targetImgToResize = null;
         
         let queuePromise = Promise.resolve();
         window.triggerMathJax = function() {
@@ -634,7 +652,7 @@
                         document.getElementById('live-preview-box'), 
                         document.getElementById('question-list-container'), 
                         document.getElementById('exam-display-area')
-                    ]).catch(e => { /* Ignore ngắt quãng MathJax */ });
+                    ]).catch(e => { /* Ignore */ });
                 });
             }
         };
@@ -652,6 +670,13 @@
                 bCancel.onclick = () => { m.classList.add('hidden'); resolve(false); };
             });
         }
+
+        window.openSyncModal = function() {
+            document.getElementById('gh-repo').value = localStorage.getItem('gh_repo') || '';
+            document.getElementById('gh-token').value = localStorage.getItem('gh_token') || '';
+            document.getElementById('sync-modal').classList.remove('hidden');
+        }
+        window.closeSyncModal = function() { document.getElementById('sync-modal').classList.add('hidden'); }
 
         // ====== TÍCH HỢP LOCALFORAGE VÀ TỰ ĐỘNG SẮP XẾP ======
         window.questionBank = [];
@@ -735,13 +760,6 @@
 
         // ====== ĐỒNG BỘ GITHUB ======
         function utf8_to_b64(str) { return window.btoa(unescape(encodeURIComponent(str))); }
-
-        window.openSyncModal = function() {
-            document.getElementById('gh-repo').value = localStorage.getItem('gh_repo') || '';
-            document.getElementById('gh-token').value = localStorage.getItem('gh_token') || '';
-            document.getElementById('sync-modal').classList.remove('hidden');
-        }
-        window.closeSyncModal = function() { document.getElementById('sync-modal').classList.add('hidden'); }
 
         window.syncToGitHub = async function() {
             if(window.questionBank.length === 0) { showModal('Ngân hàng câu hỏi đang trống!', 'Thông báo'); return; }
@@ -915,7 +933,12 @@
             convertAndCompressImage(file, (base64) => { currentStandaloneImages.push(base64); renderStandaloneImagePreviews(); queueLivePreview(); });
         }
         window.removeStandaloneImage = function(idx) { currentStandaloneImages.splice(idx, 1); renderStandaloneImagePreviews(); queueLivePreview(); }
-        window.updateStandaloneLayout = function() { currentStandaloneLayout = document.getElementById('layout-selector').value; queueLivePreview(); }
+        
+        window.updateStandaloneLayout = function() { 
+            currentStandaloneLayout = document.getElementById('layout-selector').value; 
+            currentStandaloneScale = parseInt(document.getElementById('scale-selector').value) || 100;
+            queueLivePreview(); 
+        }
 
         function renderStandaloneImagePreviews() {
             const container = document.getElementById('standalone-image-preview-container');
@@ -966,15 +989,42 @@
             } catch(err) { console.warn("Paste error: ", err); }
         });
 
+        document.addEventListener('dblclick', function(e) {
+            if (e.target.tagName === 'IMG' && e.target.classList.contains('inline-img')) {
+                targetImgToResize = e.target;
+                let currentWidth = targetImgToResize.style.width || '100%';
+                let num = parseInt(currentWidth);
+                if (isNaN(num)) num = 100;
+                document.getElementById('resize-input').value = num;
+                document.getElementById('resize-modal').classList.remove('hidden');
+            }
+        });
+
+        window.closeResizeModal = function(apply) {
+            if (apply && targetImgToResize) {
+                let val = parseInt(document.getElementById('resize-input').value);
+                if (val >= 10 && val <= 100) {
+                    targetImgToResize.style.width = val + '%';
+                    queueLivePreview();
+                } else {
+                    showModal('Tỷ lệ không hợp lệ! Vui lòng nhập từ 10 đến 100.', 'Lỗi');
+                    return;
+                }
+            }
+            document.getElementById('resize-modal').classList.add('hidden');
+            targetImgToResize = null;
+        }
+
         let previewTimeout;
         window.queueLivePreview = function() { clearTimeout(previewTimeout); previewTimeout = setTimeout(() => { updatePreviewDOM(); window.triggerMathJax(); }, 300); }
 
-        function buildExamImageHtml(images, layout) {
+        function buildExamImageHtml(images, layout, scale) {
             if (!images || images.length === 0) return '';
+            let scaleVal = scale || 100;
             let layoutClass = "w-full gap-4 justify-center items-center my-4 ";
             if (layout === 'row') layoutClass += "flex flex-row flex-wrap"; else if (layout === 'col') layoutClass += "flex flex-col"; else if (layout === 'grid') layoutClass += "grid grid-cols-2";
             let html = `<div class="${layoutClass}">`;
-            images.forEach(src => { html += `<img src="${src}" class="standalone-img border shadow-sm">`; });
+            images.forEach(src => { html += `<img src="${src}" class="standalone-img border shadow-sm" style="width: ${scaleVal}%; max-width: ${scaleVal}%;">`; });
             html += `</div>`;
             return html;
         }
@@ -984,7 +1034,7 @@
             const qSubContent = document.getElementById('q-sub-content').innerHTML;
             const qType = document.getElementById('q-type').value;
             let html = `<div class="font-bold mb-2 text-justify">${qContent || ''}</div>`;
-            html += buildExamImageHtml(currentStandaloneImages, currentStandaloneLayout);
+            html += buildExamImageHtml(currentStandaloneImages, currentStandaloneLayout, currentStandaloneScale);
             if (qSubContent.trim()) html += `<div class="font-bold mb-2 text-justify">${qSubContent}</div>`;
             
             if (qType === 'trac_nghiem') {
@@ -1019,7 +1069,7 @@
                     document.querySelectorAll('#answer-container .ans-input').forEach((el, idx) => { answers.push({ content: el.innerHTML, correct: document.querySelectorAll('#answer-container .ans-correct-ds')[idx].value === 'true' }); });
                 } else if (type === 'tra_loi_ngan') { correctAnswer = document.getElementById('ans-short-text').value; }
 
-                const newQ = { grade, chapterId, unit, type, level, content, subContent, standaloneImages: [...currentStandaloneImages], standaloneLayout: currentStandaloneLayout, answers, correctAnswer };
+                const newQ = { grade, chapterId, unit, type, level, content, subContent, standaloneImages: [...currentStandaloneImages], standaloneLayout: currentStandaloneLayout, standaloneScale: currentStandaloneScale, answers, correctAnswer };
 
                 let success = false;
                 if (editingQuestionId) success = await window.updateQuestionInLocal(String(editingQuestionId), newQ); 
@@ -1037,7 +1087,17 @@
                 document.getElementById('q-chapter').value = q.chapterId; updateDonViKienThucOptions();
                 document.getElementById('q-unit').value = q.unit; document.getElementById('q-type').value = q.type; document.getElementById('q-level').value = q.level;
                 document.getElementById('q-content').innerHTML = q.content || ''; document.getElementById('q-sub-content').innerHTML = q.subContent || '';
-                currentStandaloneImages = q.standaloneImages || (q.standaloneImage ? [q.standaloneImage] : []); currentStandaloneLayout = q.standaloneLayout || 'row';
+                
+                currentStandaloneImages = q.standaloneImages || (q.standaloneImage ? [q.standaloneImage] : []); 
+                currentStandaloneLayout = q.standaloneLayout || 'row';
+                currentStandaloneScale = q.standaloneScale || 100;
+                
+                let scaleInput = document.getElementById('scale-selector');
+                if(scaleInput) {
+                    scaleInput.value = currentStandaloneScale;
+                    document.getElementById('scale-val').textContent = currentStandaloneScale + '%';
+                }
+                
                 renderStandaloneImagePreviews(); changeQuestionType();
 
                 setTimeout(() => {
@@ -1059,7 +1119,13 @@
 
         window.cancelEdit = function() {
             editingQuestionId = null; document.getElementById('q-content').innerHTML = ''; document.getElementById('q-sub-content').innerHTML = '';
-            currentStandaloneImages = []; renderStandaloneImagePreviews(); changeQuestionType();
+            
+            currentStandaloneImages = []; 
+            currentStandaloneScale = 100;
+            let scaleInput = document.getElementById('scale-selector');
+            if(scaleInput) { scaleInput.value = 100; document.getElementById('scale-val').textContent = '100%'; }
+            
+            renderStandaloneImagePreviews(); changeQuestionType();
             document.getElementById('form-title').innerHTML = '<i class="fas fa-plus-circle text-indigo-600 mr-2"></i> Thêm Câu Hỏi Mới';
             document.getElementById('btn-save-question').innerHTML = '<i class="fas fa-save"></i> <span>Lưu Câu Hỏi Vào Ngân Hàng (Offline)</span>';
             document.getElementById('btn-save-question').classList.replace('bg-amber-500', 'bg-indigo-600'); document.getElementById('btn-cancel-edit').classList.add('hidden');
@@ -1097,7 +1163,9 @@
         window.importBackup = function() { document.getElementById('backup-file-input').click(); }
 
         window.handleImportBackup = async function(event) {
-            const file = event.target.files[0]; if (!file) return;
+            const file = event.target.files[0]; 
+            const inputEl = event.target;
+            if (!file) return;
             const reader = new FileReader();
             reader.onload = async function(e) {
                 try {
@@ -1120,11 +1188,12 @@
                         }
                     } else { window.questionBank = importedData; showModal('Đã khôi phục ngân hàng câu hỏi thành công!', 'Thành công'); }
                     
-                    window.autoSortQuestionBank(); // Tự động sắp xếp sau khi gộp
+                    window.autoSortQuestionBank();
                     await localforage.setItem('chem_question_bank', window.questionBank);
                     renderQuestionList();
                 } catch (err) { showModal('File backup không đúng định dạng JSON. Vui lòng kiểm tra lại!', 'Lỗi nhập dữ liệu'); }
-                event.target.value = ''; 
+                
+                inputEl.value = ''; // Reset input để có thể nhập lại cùng 1 file nhiều lần
             };
             reader.readAsText(file);
         }
@@ -1430,7 +1499,7 @@
                     html += `<div class="mb-6"><p class="font-bold mb-4 uppercase text-[14pt]">PHẦN I. Câu trắc nghiệm nhiều phương án lựa chọn.</p>`;
                     exam.tracNghiem.forEach((q, idx) => {
                         html += `<div class="mb-4 text-justify question-block"><p class="font-bold mb-1">Câu ${idx+1}: <span class="font-normal">${q.content || ''}</span></p>`;
-                        let images = q.standaloneImages || (q.standaloneImage ? [q.standaloneImage] : []); html += buildExamImageHtml(images, q.standaloneLayout);
+                        let images = q.standaloneImages || (q.standaloneImage ? [q.standaloneImage] : []); html += buildExamImageHtml(images, q.standaloneLayout, q.standaloneScale);
                         if (q.subContent) html += `<p class="font-bold mb-2"><span class="font-normal">${q.subContent}</span></p>`;
                         html += `<div class="grid grid-cols-2 gap-2 mt-2">`;
                         q.answers.forEach((ans, aIdx) => { html += `<div><span class="font-bold mr-1">${['A', 'B', 'C', 'D'][aIdx]}.</span> <span>${ans}</span></div>`; });
@@ -1443,7 +1512,7 @@
                     html += `<div class="mb-6"><p class="font-bold mb-4 uppercase text-[14pt]">PHẦN II. Câu trắc nghiệm đúng/sai.</p>`;
                     exam.dungSai.forEach((q, idx) => {
                         html += `<div class="mb-4 text-justify question-block"><p class="font-bold mb-1">Câu ${idx+1}: <span class="font-normal">${q.content || ''}</span></p>`;
-                        let images = q.standaloneImages || (q.standaloneImage ? [q.standaloneImage] : []); html += buildExamImageHtml(images, q.standaloneLayout);
+                        let images = q.standaloneImages || (q.standaloneImage ? [q.standaloneImage] : []); html += buildExamImageHtml(images, q.standaloneLayout, q.standaloneScale);
                         if (q.subContent) html += `<p class="font-bold mb-2"><span class="font-normal">${q.subContent}</span></p>`;
                         html += `<div class="pl-4 mt-2 space-y-1">`;
                         q.answers.forEach((ansObj, aIdx) => { html += `<div><span class="font-bold mr-2">${['a', 'b', 'c', 'd'][aIdx]})</span> <span>${ansObj.content}</span></div>`; });
@@ -1456,7 +1525,7 @@
                     html += `<div class="mb-6"><p class="font-bold mb-4 uppercase text-[14pt]">PHẦN III. Câu trắc nghiệm trả lời ngắn.</p>`;
                     exam.traLoiNgan.forEach((q, idx) => {
                         html += `<div class="mb-4 text-justify question-block"><p class="font-bold mb-1">Câu ${idx+1}: <span class="font-normal">${q.content || ''}</span></p>`;
-                        let images = q.standaloneImages || (q.standaloneImage ? [q.standaloneImage] : []); html += buildExamImageHtml(images, q.standaloneLayout);
+                        let images = q.standaloneImages || (q.standaloneImage ? [q.standaloneImage] : []); html += buildExamImageHtml(images, q.standaloneLayout, q.standaloneScale);
                         if (q.subContent) html += `<p class="font-bold mb-2"><span class="font-normal">${q.subContent}</span></p>`;
                         html += `</div>`;
                     });
@@ -1472,27 +1541,62 @@
             } catch (err) { console.warn(err); }
         }
 
-        function buildWordImageHtml(images, layout) {
+        function buildWordAnswerKeyHtml(exam) {
+            let html = `<br clear=all style='mso-special-character:line-break;page-break-before:always'>`;
+            html += `<p style="text-align: center; font-weight: bold; font-size: 14pt; margin-bottom: 20px;">ĐÁP ÁN MÃ ĐỀ ${exam.maDe}</p>`;
+            
+            if (exam.tracNghiem && exam.tracNghiem.length > 0) {
+                html += `<p style="font-weight: bold;">PHẦN I. TRẮC NGHIỆM</p><table style="width: 100%; text-align: center; border-collapse: collapse; margin-bottom: 15px;"><tr>`;
+                exam.tracNghiem.forEach((q, idx) => {
+                    let ansChar = ['A', 'B', 'C', 'D'][q.correctAnswer];
+                    html += `<td style="border: 1px solid black; padding: 5px;"><b>${idx+1}</b><br>${ansChar}</td>`;
+                    if ((idx + 1) % 10 === 0 && idx !== exam.tracNghiem.length - 1) html += `</tr><tr>`;
+                });
+                html += `</tr></table>`;
+            }
+            if (exam.dungSai && exam.dungSai.length > 0) {
+                html += `<p style="font-weight: bold;">PHẦN II. ĐÚNG/SAI</p><table style="width: 100%; text-align: center; border-collapse: collapse; margin-bottom: 15px;">`;
+                exam.dungSai.forEach((q, idx) => {
+                    html += `<tr><td style="border: 1px solid black; padding: 5px; font-weight: bold; width: 60px;">Câu ${idx+1}</td>`;
+                    q.answers.forEach(a => { html += `<td style="border: 1px solid black; padding: 5px;">${a.correct ? 'Đ' : 'S'}</td>`; });
+                    html += `</tr>`;
+                });
+                html += `</table>`;
+            }
+            if (exam.traLoiNgan && exam.traLoiNgan.length > 0) {
+                html += `<p style="font-weight: bold;">PHẦN III. TRẢ LỜI NGẮN</p><table style="width: 100%; text-align: center; border-collapse: collapse; margin-bottom: 15px;"><tr>`;
+                exam.traLoiNgan.forEach((q, idx) => {
+                    html += `<td style="border: 1px solid black; padding: 5px;"><b>Câu ${idx+1}</b><br>${q.correctAnswer || ''}</td>`;
+                    if ((idx + 1) % 5 === 0 && idx !== exam.traLoiNgan.length - 1) html += `</tr><tr>`;
+                });
+                html += `</tr></table>`;
+            }
+            return html;
+        }
+
+        function buildWordImageHtml(images, layout, scale) {
             if (!images || images.length === 0) return '';
+            let scaleVal = scale || 100;
+            let imgStyle = `width: ${scaleVal}%; max-width: ${scaleVal}%; height: auto;`;
             let wordImgHtml = '';
             if (layout === 'row' || layout === 'grid') {
                  wordImgHtml += `<table style="width: 100%; border: none; text-align: center; margin: 10px 0;">`;
                  if (layout === 'row') {
                      wordImgHtml += `<tr>`;
                      let widthPct = Math.floor(100 / images.length);
-                     images.forEach(src => { wordImgHtml += `<td style="border: none; padding: 5px; width: ${widthPct}%; vertical-align: middle;"><img src="${src}" style="max-width: 90%; height: auto;"></td>`; });
+                     images.forEach(src => { wordImgHtml += `<td style="border: none; padding: 5px; width: ${widthPct}%; vertical-align: middle;"><img src="${src}" style="${imgStyle}"></td>`; });
                      wordImgHtml += `</tr>`;
                  } else if (layout === 'grid') {
                      for(let i=0; i<images.length; i+=2) {
-                         wordImgHtml += `<tr><td style="border: none; padding: 5px; width: 50%; vertical-align: middle;"><img src="${images[i]}" style="max-width: 90%; height: auto;"></td>`;
-                         if(images[i+1]) wordImgHtml += `<td style="border: none; padding: 5px; width: 50%; vertical-align: middle;"><img src="${images[i+1]}" style="max-width: 90%; height: auto;"></td>`;
+                         wordImgHtml += `<tr><td style="border: none; padding: 5px; width: 50%; vertical-align: middle;"><img src="${images[i]}" style="${imgStyle}"></td>`;
+                         if(images[i+1]) wordImgHtml += `<td style="border: none; padding: 5px; width: 50%; vertical-align: middle;"><img src="${images[i+1]}" style="${imgStyle}"></td>`;
                          else wordImgHtml += `<td style="border: none; width: 50%;"></td>`;
                          wordImgHtml += `</tr>`;
                      }
                  }
                  wordImgHtml += `</table>`;
             } else {
-                 images.forEach(src => { wordImgHtml += `<div style="text-align: center; margin: 10px 0;"><img src="${src}" style="max-width: 90%; height: auto;"></div>`; });
+                 images.forEach(src => { wordImgHtml += `<div style="text-align: center; margin: 10px 0;"><img src="${src}" style="${imgStyle}"></div>`; });
             }
             return wordImgHtml;
         }
@@ -1512,7 +1616,7 @@
                     htmlContent += `<p style="font-weight: bold; text-transform: uppercase;">PHẦN I. Câu trắc nghiệm nhiều phương án lựa chọn.</p>`;
                     exam.tracNghiem.forEach((q, idx) => {
                         htmlContent += `<p style="text-align: justify; margin-top: 10px;"><b>Câu ${idx+1}:</b> ${q.content || ''}</p>`;
-                        let images = q.standaloneImages || (q.standaloneImage ? [q.standaloneImage] : []); htmlContent += buildWordImageHtml(images, q.standaloneLayout);
+                        let images = q.standaloneImages || (q.standaloneImage ? [q.standaloneImage] : []); htmlContent += buildWordImageHtml(images, q.standaloneLayout, q.standaloneScale);
                         if (q.subContent) htmlContent += `<p style="text-align: justify; margin-top: 5px;">${q.subContent}</p>`;
                         htmlContent += `<table style="width:100%; border:none; margin-bottom:10px;"><tr><td style="width:50%; border:none; vertical-align:top;"><b>A.</b> ${q.answers[0]}</td><td style="width:50%; border:none; vertical-align:top;"><b>B.</b> ${q.answers[1]}</td></tr><tr><td style="width:50%; border:none; vertical-align:top;"><b>C.</b> ${q.answers[2]}</td><td style="width:50%; border:none; vertical-align:top;"><b>D.</b> ${q.answers[3]}</td></tr></table>`;
                     });
@@ -1521,7 +1625,7 @@
                     htmlContent += `<p style="font-weight: bold; text-transform: uppercase; margin-top:20px;">PHẦN II. Câu trắc nghiệm đúng/sai.</p>`;
                     exam.dungSai.forEach((q, idx) => {
                         htmlContent += `<p style="text-align: justify; margin-top: 10px;"><b>Câu ${idx+1}:</b> ${q.content || ''}</p>`;
-                        let images = q.standaloneImages || (q.standaloneImage ? [q.standaloneImage] : []); htmlContent += buildWordImageHtml(images, q.standaloneLayout);
+                        let images = q.standaloneImages || (q.standaloneImage ? [q.standaloneImage] : []); htmlContent += buildWordImageHtml(images, q.standaloneLayout, q.standaloneScale);
                         if (q.subContent) htmlContent += `<p style="text-align: justify; margin-top: 5px;">${q.subContent}</p>`;
                         q.answers.forEach((ansObj, aIdx) => { htmlContent += `<p style="margin-left: 20px; margin-top: 3px;"><b>${['a', 'b', 'c', 'd'][aIdx]})</b> ${ansObj.content}</p>`; });
                     });
@@ -1530,7 +1634,7 @@
                     htmlContent += `<p style="font-weight: bold; text-transform: uppercase; margin-top:20px;">PHẦN III. Câu trắc nghiệm trả lời ngắn.</p>`;
                     exam.traLoiNgan.forEach((q, idx) => {
                         htmlContent += `<p style="text-align: justify; margin-top: 10px;"><b>Câu ${idx+1}:</b> ${q.content || ''}</p>`;
-                        let images = q.standaloneImages || (q.standaloneImage ? [q.standaloneImage] : []); htmlContent += buildWordImageHtml(images, q.standaloneLayout);
+                        let images = q.standaloneImages || (q.standaloneImage ? [q.standaloneImage] : []); htmlContent += buildWordImageHtml(images, q.standaloneLayout, q.standaloneScale);
                         if (q.subContent) htmlContent += `<p style="text-align: justify; margin-top: 5px;">${q.subContent}</p>`;
                     });
                 }

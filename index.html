@@ -62,8 +62,8 @@
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col text-[13pt]">
 
     <header class="bg-indigo-700 text-white shadow-md no-print">
-        <div class="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
-            <div class="flex items-center space-x-3 mb-2 md:mb-0">
+        <div class="container mx-auto px-4 py-4 flex flex-col xl:flex-row justify-between items-center gap-4">
+            <div class="flex items-center space-x-3 w-full xl:w-auto justify-center xl:justify-start">
                 <div class="bg-white text-indigo-700 p-2 rounded-lg font-bold text-xl shadow-sm">
                     <i class="fas fa-flask"></i>
                 </div>
@@ -72,12 +72,12 @@
                     <p class="text-sm text-indigo-200">Phiên bản Offline Hoàn Toàn | Lưu trực tiếp trên máy</p>
                 </div>
             </div>
-            <nav class="flex space-x-2">
+            <nav class="flex flex-wrap items-center justify-center gap-2">
                 <button onclick="switchTab('bank')" id="btn-bank" class="px-4 py-2 rounded-lg font-bold bg-indigo-800 text-white transition flex items-center space-x-2">
                     <i class="fas fa-database"></i> <span>Ngân hàng câu hỏi</span>
                 </button>
                 <button onclick="switchTab('matrix')" id="btn-matrix" class="px-4 py-2 rounded-lg font-medium text-indigo-100 hover:bg-indigo-600 transition flex items-center space-x-2">
-                    <i class="fas fa-th"></i> <span>Ma trận (Theo Lớp)</span>
+                    <i class="fas fa-th"></i> <span>Ma trận (Lớp)</span>
                 </button>
                 <button onclick="switchTab('university')" id="btn-university" class="px-4 py-2 rounded-lg font-medium text-indigo-100 hover:bg-indigo-600 transition flex items-center space-x-2">
                     <i class="fas fa-graduation-cap"></i> <span>Ma trận (Đại học)</span>
@@ -85,8 +85,9 @@
                 <button onclick="switchTab('exam')" id="btn-exam" class="px-4 py-2 rounded-lg font-medium text-indigo-100 hover:bg-indigo-600 transition flex items-center space-x-2">
                     <i class="fas fa-file-alt"></i> <span>Đề thi đã sinh</span>
                 </button>
-                <button onclick="openSyncModal()" class="px-4 py-2 rounded-lg font-bold bg-amber-500 hover:bg-amber-600 text-white shadow-md transition flex items-center space-x-2 ml-4">
-                    <i class="fas fa-cloud-upload-alt animate-bounce mt-1"></i> <span>Đồng Bộ Lên GitHub</span>
+                <div class="w-px h-6 bg-indigo-500 mx-1 hidden lg:block"></div>
+                <button onclick="openSyncModal()" class="px-4 py-2 rounded-lg font-bold bg-amber-500 hover:bg-amber-600 text-white shadow-md transition flex items-center space-x-2">
+                    <i class="fas fa-cloud-upload-alt mt-0.5"></i> <span>Đồng Bộ Lên GitHub</span>
                 </button>
             </nav>
         </div>
@@ -167,17 +168,33 @@
                     <button type="button" onclick="formatText('superscript')" class="px-2 py-1 bg-white border rounded font-semibold hover:bg-slate-50 shadow-sm" title="Chỉ số trên">X²</button>
                     <span class="border-r mx-1 h-5 border-slate-300"></span>
 
+                    <!-- Mũi tên & Phản ứng -->
                     <button type="button" onclick="insertChemicalSymbol('→')" class="px-2 py-1 bg-white border rounded font-bold text-indigo-700 hover:bg-indigo-50 shadow-sm" title="Mũi tên">→</button>
                     <button type="button" onclick="insertChemicalSymbol('⇌')" class="px-2 py-1 bg-white border rounded font-bold text-indigo-700 hover:bg-indigo-50 shadow-sm" title="Thuận nghịch">⇌</button>
                     <button type="button" onclick="insertChemicalSymbol('↓')" class="px-2 py-1 bg-white border rounded font-bold text-indigo-700 hover:bg-indigo-50 shadow-sm" title="Kết tủa">↓</button>
                     <button type="button" onclick="insertChemicalSymbol('↑')" class="px-2 py-1 bg-white border rounded font-bold text-indigo-700 hover:bg-indigo-50 shadow-sm" title="Bay lên">↑</button>
                     <span class="border-r mx-1 h-5 border-slate-300"></span>
 
-                    <select onchange="insertSpecialChar(this.value); this.selectedIndex=0;" class="px-2 py-1 bg-white border rounded font-bold text-slate-700 hover:bg-slate-50 shadow-sm cursor-pointer focus:outline-none">
+                    <!-- Các loại liên kết -->
+                    <button type="button" onclick="insertChemicalSymbol('-')" class="px-2 py-1 bg-white border rounded font-black text-emerald-700 hover:bg-emerald-50 shadow-sm" title="Liên kết đơn">—</button>
+                    <button type="button" onclick="insertChemicalSymbol('=')" class="px-2 py-1 bg-white border rounded font-black text-emerald-700 hover:bg-emerald-50 shadow-sm" title="Liên kết đôi">=</button>
+                    <button type="button" onclick="insertChemicalSymbol('≡')" class="px-2 py-1 bg-white border rounded font-black text-emerald-700 hover:bg-emerald-50 shadow-sm" title="Liên kết ba">≡</button>
+                    <span class="border-r mx-1 h-5 border-slate-300"></span>
+
+                    <!-- Ký tự đặc biệt & Hy Lạp -->
+                    <select onchange="insertSpecialChar(this.value); this.selectedIndex=0;" class="px-2 py-1 bg-white border rounded font-bold text-slate-700 hover:bg-slate-50 shadow-sm cursor-pointer focus:outline-none max-w-[150px]">
                         <option value="">Kí tự đặc biệt</option>
-                        <option value="α">α (Alpha)</option><option value="β">β (Beta)</option><option value="γ">γ (Gamma)</option>
-                        <option value="Δ">Δ (Delta)</option><option value="π">π (Pi)</option><option value="°">° (Độ)</option>
-                        <option value="μ">μ (Micro)</option><option value="λ">λ (Lambda)</option><option value="≈">≈ (Xấp xỉ)</option><option value="±">± (Cộng trừ)</option>
+                        <option value="°">° (Độ)</option><option value="≈">≈ (Xấp xỉ)</option><option value="±">± (Cộng trừ)</option>
+                        <optgroup label="Bảng chữ cái Hy Lạp">
+                            <option value="α">α (Alpha)</option><option value="β">β (Beta)</option><option value="γ">γ (Gamma)</option>
+                            <option value="δ">δ (Delta)</option><option value="ε">ε (Epsilon)</option><option value="ζ">ζ (Zeta)</option>
+                            <option value="η">η (Eta)</option><option value="θ">θ (Theta)</option><option value="ι">ι (Iota)</option>
+                            <option value="κ">κ (Kappa)</option><option value="λ">λ (Lambda)</option><option value="μ">μ (Mu)</option>
+                            <option value="ν">ν (Nu)</option><option value="ξ">ξ (Xi)</option><option value="ο">ο (Omicron)</option>
+                            <option value="π">π (Pi)</option><option value="ρ">ρ (Rho)</option><option value="σ">σ (Sigma)</option>
+                            <option value="τ">τ (Tau)</option><option value="υ">υ (Upsilon)</option><option value="φ">φ (Phi)</option>
+                            <option value="χ">χ (Chi)</option><option value="ψ">ψ (Psi)</option><option value="ω">ω (Omega)</option>
+                        </optgroup>
                     </select>
                     <span class="border-r mx-1 h-5 border-slate-300"></span>
 
@@ -233,33 +250,49 @@
             </div>
 
             <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-                <div class="flex flex-wrap justify-between items-center mb-4 gap-2">
-                    <h3 class="text-lg font-bold text-slate-700"><i class="fas fa-list text-indigo-600 mr-2"></i> Ngân hàng Đề (<span id="total-q-count">0</span>)</h3>
-                    <div class="flex items-center space-x-2">
+                <div class="flex flex-col xl:flex-row justify-between items-center mb-4 gap-4 bg-slate-50 p-3 rounded-lg border border-slate-200">
+                    <div class="flex flex-wrap items-center gap-3 w-full xl:w-auto justify-center xl:justify-start">
+                        <h3 class="text-lg font-black text-indigo-800 whitespace-nowrap mr-2"><i class="fas fa-list mr-2"></i> Ngân hàng Đề (<span id="total-q-count">0</span>)</h3>
+                        
                         <!-- Checkbox Chọn tất cả -->
-                        <label class="flex items-center space-x-1 cursor-pointer bg-slate-100 px-2 py-1.5 rounded border border-slate-300 hover:bg-slate-200 transition">
+                        <label class="flex items-center space-x-1 cursor-pointer bg-white px-3 py-1.5 rounded border border-slate-300 hover:bg-slate-100 transition shadow-sm">
                             <input type="checkbox" id="select-all-q" onchange="toggleSelectAll(this)" class="w-4 h-4 text-blue-600 rounded cursor-pointer">
-                            <span class="text-sm font-bold text-slate-700">Chọn tất cả</span>
+                            <span class="text-sm font-bold text-slate-700 whitespace-nowrap">Chọn tất cả</span>
                         </label>
                         
-                        <!-- Nút Backup/Restore nổi bật -->
-                        <button onclick="exportBackup()" class="px-3 py-1.5 rounded bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm flex items-center shadow-sm transition" title="Chỉ sao lưu những câu đã tick chọn">
-                            <i class="fas fa-download mr-1"></i> Xuất file (Đã chọn)
+                        <!-- Các nút tương tác -->
+                        <button onclick="exportBackup()" class="px-3 py-1.5 rounded bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm flex items-center shadow-sm transition whitespace-nowrap" title="Chỉ sao lưu những câu đã tick chọn">
+                            <i class="fas fa-download mr-1"></i> Xuất file
                         </button>
-                        <button onclick="importBackup()" class="px-3 py-1.5 rounded bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm flex items-center shadow-sm transition">
+                        <button onclick="importBackup()" class="px-3 py-1.5 rounded bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm flex items-center shadow-sm transition whitespace-nowrap">
                             <i class="fas fa-upload mr-1"></i> Nhập file
                         </button>
+                        <button onclick="pullFromGitHub()" class="px-3 py-1.5 rounded bg-teal-600 hover:bg-teal-700 text-white font-bold text-sm flex items-center shadow-sm transition whitespace-nowrap" title="Lấy đề từ kho GitHub của bạn xuống máy tính này">
+                            <i class="fas fa-cloud-download-alt mr-1"></i> Tải từ mạng
+                        </button>
                         <input type="file" id="backup-file-input" class="hidden" accept=".json" onchange="handleImportBackup(event)">
-                        
-                        <select id="filter-grade" onchange="renderQuestionList()" class="border rounded px-3 py-1.5 font-bold bg-slate-50 ml-2">
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-2 w-full xl:w-auto justify-center xl:justify-end">
+                        <span class="text-xs font-bold text-slate-500 uppercase whitespace-nowrap"><i class="fas fa-filter mr-1"></i> Lọc & Sắp xếp:</span>
+                        <select id="filter-grade" onchange="updateFilterChapter(); renderQuestionList()" class="border border-slate-300 rounded px-2 py-1.5 font-bold bg-white text-sm focus:ring-2 focus:ring-indigo-500">
                             <option value="">Tất cả khối</option>
                             <option value="10">Lớp 10</option>
                             <option value="11">Lớp 11</option>
                             <option value="12">Lớp 12</option>
                         </select>
+                        <select id="filter-chapter" onchange="renderQuestionList()" class="border border-slate-300 rounded px-2 py-1.5 font-bold bg-white text-sm hidden focus:ring-2 focus:ring-indigo-500 max-w-[200px] truncate">
+                            <option value="">Tất cả chương</option>
+                        </select>
+                        
+                        <div class="h-6 w-px bg-slate-300 mx-1 hidden sm:block"></div>
+                        
+                        <button onclick="triggerSort()" class="px-3 py-1.5 rounded bg-purple-600 hover:bg-purple-700 text-white font-bold text-sm flex items-center shadow-sm transition whitespace-nowrap" title="Xếp lại toàn bộ kho theo chuẩn: Khối -> Chương -> Độ khó">
+                            <i class="fas fa-sort-amount-down-alt mr-1"></i> Sắp xếp chuẩn
+                        </button>
                     </div>
                 </div>
-                <div id="question-list-container" class="space-y-4 max-h-[600px] overflow-y-auto pr-2"></div>
+                <div id="question-list-container" class="space-y-4 max-h-[600px] overflow-y-auto pr-2 custom-scroll border-t border-slate-200 pt-4"></div>
             </div>
         </section>
 
@@ -623,23 +656,42 @@
             });
         }
 
-        // ====== LOCALFORAGE (LƯU TRỮ HÀNG GB) ======
+        // ====== TÍCH HỢP LOCALFORAGE VÀ TỰ ĐỘNG SẮP XẾP ======
         window.questionBank = [];
         localforage.config({ name: 'ChemAppDB', storeName: 'questions' });
 
+        const levelWeight = { "NhanBiet": 1, "ThongHieu": 2, "VanDung": 3, "VanDungCao": 4 };
+
+        window.autoSortQuestionBank = function() {
+            window.questionBank.sort((a, b) => {
+                if (a.grade !== b.grade) return parseInt(a.grade) - parseInt(b.grade);
+                if (a.chapterId !== b.chapterId) {
+                    if (a.chapterId < b.chapterId) return -1;
+                    if (a.chapterId > b.chapterId) return 1;
+                    return 0;
+                }
+                return (levelWeight[a.level] || 0) - (levelWeight[b.level] || 0);
+            });
+        }
+
+        window.triggerSort = async function() {
+            window.autoSortQuestionBank();
+            await localforage.setItem('chem_question_bank', window.questionBank);
+            renderQuestionList();
+            showModal("Đã sắp xếp lại ngân hàng câu hỏi chuẩn xác theo thứ tự:\nKhối lớp -> Chương -> Mức độ nhận thức.", "Sắp xếp hoàn tất");
+        }
+
         window.onload = async function() {
             try {
-                // Tải dữ liệu từ LocalForage khi vừa mở App
                 let savedData = await localforage.getItem('chem_question_bank');
                 if (savedData && Array.isArray(savedData)) {
                     window.questionBank = savedData.map(q => ({ ...q, id: String(q.id) }));
                 } else {
-                    // Cố gắng cứu dữ liệu cũ từ LocalStorage (5MB) nếu có
                     let oldData = localStorage.getItem('chem_question_bank');
                     if (oldData) {
                         window.questionBank = JSON.parse(oldData);
                         await localforage.setItem('chem_question_bank', window.questionBank);
-                        localStorage.removeItem('chem_question_bank'); // Xóa cái cũ đi cho nhẹ
+                        localStorage.removeItem('chem_question_bank'); 
                     }
                 }
                 
@@ -656,6 +708,7 @@
             try {
                 qData.id = String('Q_' + Date.now());
                 window.questionBank.push(qData);
+                window.autoSortQuestionBank();
                 await localforage.setItem('chem_question_bank', window.questionBank);
                 return true;
             } catch (err) {
@@ -668,6 +721,7 @@
             try {
                 const idx = window.questionBank.findIndex(q => String(q.id) === String(id));
                 if (idx !== -1) window.questionBank[idx] = { ...qData, id: String(id) };
+                window.autoSortQuestionBank();
                 await localforage.setItem('chem_question_bank', window.questionBank);
                 return true;
             } catch (err) { 
@@ -681,6 +735,106 @@
             await localforage.setItem('chem_question_bank', window.questionBank);
             return true;
         }
+
+        // ====== ĐỒNG BỘ GITHUB ======
+        function utf8_to_b64(str) { return window.btoa(unescape(encodeURIComponent(str))); }
+
+        window.openSyncModal = function() {
+            document.getElementById('gh-repo').value = localStorage.getItem('gh_repo') || '';
+            document.getElementById('gh-token').value = localStorage.getItem('gh_token') || '';
+            document.getElementById('sync-modal').classList.remove('hidden');
+        }
+        window.closeSyncModal = function() { document.getElementById('sync-modal').classList.add('hidden'); }
+
+        window.pullFromGitHub = async function() {
+            let repo = localStorage.getItem('gh_repo') || prompt("Nhập Tên Kho GitHub (Ví dụ: taikhoan/ten-kho):");
+            if (!repo) return;
+            localStorage.setItem('gh_repo', repo);
+
+            const btn = document.querySelector('button[onclick="pullFromGitHub()"]');
+            const originalHtml = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i> Tải...';
+            btn.disabled = true;
+
+            try {
+                const res = await fetch(`https://api.github.com/repos/${repo}/contents/data.json?v=${Date.now()}`);
+                if (!res.ok) throw new Error("Không tìm thấy file data.json");
+                
+                const data = await res.json();
+                const contentStr = decodeURIComponent(escape(window.atob(data.content)));
+                const importedData = JSON.parse(contentStr);
+
+                if (!Array.isArray(importedData)) throw new Error("Dữ liệu không hợp lệ");
+                
+                const confirmMerge = await showModal('Đã tìm thấy dữ liệu trên GitHub!\n\n- Chọn [Đồng ý]: GỘP đề trên mạng vào máy của bạn.\n- Chọn [Hủy]: XÓA ĐỀ TRONG MÁY và lấy 100% đề trên mạng thay thế.', 'Tải Đề Từ Mạng', true);
+                
+                if (confirmMerge) {
+                    const existingIds = new Set(window.questionBank.map(q => String(q.id))); let added = 0;
+                    importedData.forEach(q => { if (!existingIds.has(String(q.id))) { window.questionBank.push(q); added++; } });
+                    showModal(`Đã gộp thành công ${added} câu hỏi từ GitHub vào máy!`, 'Thành công');
+                } else {
+                    window.questionBank = importedData; 
+                    showModal('Đã thay thế toàn bộ đề trong máy bằng dữ liệu từ GitHub!', 'Thành công');
+                }
+
+                window.autoSortQuestionBank();
+                await localforage.setItem('chem_question_bank', window.questionBank);
+                renderQuestionList();
+
+            } catch (err) {
+                console.warn(err);
+                showModal("Không thể tải dữ liệu.\nĐảm bảo Tên kho nhập phải chính xác (taikhoan/ten-kho) và kho để Public.", "Lỗi Tải Đề");
+            } finally {
+                btn.innerHTML = originalHtml;
+                btn.disabled = false;
+            }
+        }
+
+        window.syncToGitHub = async function() {
+            if(window.questionBank.length === 0) { showModal('Ngân hàng câu hỏi đang trống!', 'Thông báo'); return; }
+
+            const repo = document.getElementById('gh-repo').value.trim();
+            const token = document.getElementById('gh-token').value.trim();
+
+            if (!repo || !token) { showModal('Vui lòng nhập đầy đủ Tên Kho và Mã Token!', 'Thiếu thông tin'); return; }
+
+            localStorage.setItem('gh_repo', repo); localStorage.setItem('gh_token', token);
+
+            const btn = document.getElementById('btn-do-sync');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang tải lên...'; btn.disabled = true;
+
+            try {
+                let sha = "";
+                const getRes = await fetch(`https://api.github.com/repos/${repo}/contents/data.json`, { headers: { 'Authorization': `token ${token}` } });
+                if (getRes.ok) { const getJson = await getRes.json(); sha = getJson.sha; }
+
+                window.autoSortQuestionBank();
+                const dataStr = JSON.stringify(window.questionBank, null, 2);
+                const contentB64 = utf8_to_b64(dataStr);
+
+                const body = { message: "Tự động cập nhật ngân hàng đề từ App", content: contentB64 };
+                if (sha) body.sha = sha; 
+
+                const putRes = await fetch(`https://api.github.com/repos/${repo}/contents/data.json`, {
+                    method: 'PUT', headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify(body)
+                });
+
+                if (putRes.ok) {
+                    closeSyncModal();
+                    let studentLink = "link của bạn";
+                    if(repo.includes('/')) {
+                        const parts = repo.split('/'); studentLink = `https://${parts[0]}.github.io/${parts[1]}/luyen-thi-hoa-hoc.html`;
+                    }
+                    showModal(`Đã đồng bộ thành công lên kho GitHub!\n\nNgười có link có thể truy cập để luyện tập (sau 1-2 phút) tại:\n👉 ${studentLink}`, "Đồng bộ hoàn tất");
+                } else {
+                    const errData = await putRes.json(); throw new Error(errData.message);
+                }
+            } catch(e) {
+                console.warn(e); showModal("Lỗi Đồng Bộ: Cấu hình Tài khoản / Tên Kho bị sai, hoặc Mã Token không đúng.", "Lỗi Kết Nối");
+            } finally {
+                btn.innerHTML = '<i class="fas fa-sync-alt mr-2"></i> Lưu & Đồng bộ ngay'; btn.disabled = false;
+            }
+        }
         // ===========================================
 
         function switchTab(tabId) {
@@ -691,6 +845,20 @@
             document.getElementById(`tab-${tabId}`).classList.remove('hidden');
             document.getElementById(`btn-${tabId}`).className = "px-4 py-2 rounded-lg font-bold bg-indigo-800 text-white transition flex items-center space-x-2";
             if(tabId === 'matrix') renderMatrixChapters();
+        }
+
+        window.updateFilterChapter = function() {
+            const grade = document.getElementById('filter-grade').value;
+            const chapSelect = document.getElementById('filter-chapter');
+            if(!grade) {
+                chapSelect.classList.add('hidden'); chapSelect.value = '';
+            } else {
+                chapSelect.classList.remove('hidden');
+                chapSelect.innerHTML = '<option value="">Tất cả chương</option>';
+                if(curriculumData[grade]) {
+                    curriculumData[grade].forEach(c => { chapSelect.innerHTML += `<option value="${c.id}">${c.name}</option>`; });
+                }
+            }
         }
 
         function updateChuyenDeOptions() {
@@ -999,6 +1167,7 @@
                         }
                     } else { window.questionBank = importedData; showModal('Đã khôi phục ngân hàng câu hỏi thành công!', 'Thành công'); }
                     
+                    window.autoSortQuestionBank(); // Tự động sắp xếp sau khi gộp
                     await localforage.setItem('chem_question_bank', window.questionBank);
                     renderQuestionList();
                 } catch (err) { showModal('File backup không đúng định dạng JSON. Vui lòng kiểm tra lại!', 'Lỗi nhập dữ liệu'); }
@@ -1007,81 +1176,19 @@
             reader.readAsText(file);
         }
 
-        // ====== TÍNH NĂNG ĐỒNG BỘ LÊN GITHUB ======
-        function utf8_to_b64(str) { return window.btoa(unescape(encodeURIComponent(str))); }
-
-        window.openSyncModal = function() {
-            document.getElementById('gh-repo').value = localStorage.getItem('gh_repo') || '';
-            document.getElementById('gh-token').value = localStorage.getItem('gh_token') || '';
-            document.getElementById('sync-modal').classList.remove('hidden');
-        }
-        window.closeSyncModal = function() { document.getElementById('sync-modal').classList.add('hidden'); }
-
-        window.syncToGitHub = async function() {
-            if(window.questionBank.length === 0) { showModal('Ngân hàng câu hỏi đang trống!', 'Thông báo'); return; }
-
-            const repo = document.getElementById('gh-repo').value.trim();
-            const token = document.getElementById('gh-token').value.trim();
-
-            if (!repo || !token) { showModal('Vui lòng nhập đầy đủ Tên Kho và Mã Token!', 'Thiếu thông tin'); return; }
-
-            // Lưu cài đặt lại để lần sau không phải nhập
-            localStorage.setItem('gh_repo', repo);
-            localStorage.setItem('gh_token', token);
-
-            const btn = document.getElementById('btn-do-sync');
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang tải lên...'; btn.disabled = true;
-
-            try {
-                let sha = "";
-                // Bước 1: Lấy chữ ký điện tử (SHA) của file data.json hiện tại (nếu có)
-                const getRes = await fetch(`https://api.github.com/repos/${repo}/contents/data.json`, {
-                    headers: { 'Authorization': `token ${token}` }
-                });
-                
-                if (getRes.ok) {
-                    const getJson = await getRes.json();
-                    sha = getJson.sha; // Lấy mã sha để cho phép ghi đè
-                }
-
-                // Bước 2: Chuẩn bị dữ liệu json (đẩy tất cả câu đang có trong DB)
-                const dataStr = JSON.stringify(window.questionBank, null, 2);
-                const contentB64 = utf8_to_b64(dataStr);
-
-                // Bước 3: Đẩy file đè lên GitHub
-                const body = {
-                    message: "Tự động cập nhật ngân hàng đề từ App Sinh Đề",
-                    content: contentB64
-                };
-                if (sha) body.sha = sha; // Ghi đè
-
-                const putRes = await fetch(`https://api.github.com/repos/${repo}/contents/data.json`, {
-                    method: 'PUT',
-                    headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
-                    body: JSON.stringify(body)
-                });
-
-                if (putRes.ok) {
-                    closeSyncModal();
-                    showModal("Đã đồng bộ thành công lên kho GitHub! Học sinh có thể làm đề mới sau khoảng 1-2 phút nữa.", "Đồng bộ hoàn tất");
-                } else {
-                    const errData = await putRes.json();
-                    throw new Error(errData.message || "Lỗi xác thực GitHub");
-                }
-            } catch(e) {
-                console.warn(e);
-                showModal("Lỗi Đồng Bộ: Cấu hình Tài khoản / Tên Kho bị sai, hoặc Mã Token không đúng / đã hết hạn. Vui lòng kiểm tra lại trên GitHub!", "Lỗi Kết Nối");
-            } finally {
-                btn.innerHTML = '<i class="fas fa-sync-alt mr-2"></i> Lưu & Đồng bộ ngay'; btn.disabled = false;
-            }
-        }
-        // ===========================================
-
         window.renderQuestionList = function() {
             try {
                 const container = document.getElementById('question-list-container');
-                const filterGrade = document.getElementById('filter-grade').value; container.innerHTML = '';
-                let filtered = window.questionBank.filter(q => !filterGrade || q.grade === filterGrade);
+                const filterGrade = document.getElementById('filter-grade').value; 
+                const filterChapter = document.getElementById('filter-chapter').value;
+                container.innerHTML = '';
+                
+                let filtered = window.questionBank.filter(q => {
+                    let matchGrade = !filterGrade || q.grade === filterGrade;
+                    let matchChapter = !filterChapter || q.chapterId === filterChapter;
+                    return matchGrade && matchChapter;
+                });
+                
                 document.getElementById('total-q-count').textContent = filtered.length;
                 if (filtered.length === 0) { container.innerHTML = `<p class="text-center py-4 italic text-slate-500">Ngân hàng trống.</p>`; return; }
 
@@ -1099,7 +1206,7 @@
                                     <span class="px-2 py-0.5 bg-indigo-600 text-white text-xs font-bold rounded">Lớp ${q.grade}</span>
                                     <span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 text-xs font-bold rounded">${typeName}</span>
                                     <span class="px-2 py-0.5 bg-amber-100 text-amber-800 text-xs font-bold rounded">${q.level}</span>
-                                    <span class="text-xs font-bold text-slate-500">| [${q.unit}]</span>
+                                    <span class="text-xs font-bold text-slate-500 truncate max-w-[200px]">| [${q.unit}]</span>
                                     ${imgCount > 0 ? `<span class="text-xs text-blue-600 font-bold bg-blue-100 px-2 py-0.5 rounded"><i class="fas fa-images"></i> ${imgCount} Ảnh</span>` : ''}
                                 </div>
                                 <div class="flex space-x-2">
@@ -1410,39 +1517,6 @@
                 document.getElementById('exam-display-area').innerHTML = html;
                 window.triggerMathJax();
             } catch (err) { console.warn(err); }
-        }
-
-        function buildWordAnswerKeyHtml(exam) {
-            let html = `<br clear=all style='mso-special-character:line-break;page-break-before:always'>`;
-            html += `<p style="text-align: center; font-weight: bold; font-size: 14pt; margin-bottom: 20px;">ĐÁP ÁN MÃ ĐỀ ${exam.maDe}</p>`;
-            
-            if (exam.tracNghiem && exam.tracNghiem.length > 0) {
-                html += `<p style="font-weight: bold;">PHẦN I. TRẮC NGHIỆM</p><table style="width: 100%; text-align: center; border-collapse: collapse; margin-bottom: 15px;"><tr>`;
-                exam.tracNghiem.forEach((q, idx) => {
-                    let ansChar = ['A', 'B', 'C', 'D'][q.correctAnswer];
-                    html += `<td style="border: 1px solid black; padding: 5px;"><b>${idx+1}</b><br>${ansChar}</td>`;
-                    if ((idx + 1) % 10 === 0 && idx !== exam.tracNghiem.length - 1) html += `</tr><tr>`;
-                });
-                html += `</tr></table>`;
-            }
-            if (exam.dungSai && exam.dungSai.length > 0) {
-                html += `<p style="font-weight: bold;">PHẦN II. ĐÚNG/SAI</p><table style="width: 100%; text-align: center; border-collapse: collapse; margin-bottom: 15px;">`;
-                exam.dungSai.forEach((q, idx) => {
-                    html += `<tr><td style="border: 1px solid black; padding: 5px; font-weight: bold; width: 60px;">Câu ${idx+1}</td>`;
-                    q.answers.forEach(a => { html += `<td style="border: 1px solid black; padding: 5px;">${a.correct ? 'Đ' : 'S'}</td>`; });
-                    html += `</tr>`;
-                });
-                html += `</table>`;
-            }
-            if (exam.traLoiNgan && exam.traLoiNgan.length > 0) {
-                html += `<p style="font-weight: bold;">PHẦN III. TRẢ LỜI NGẮN</p><table style="width: 100%; text-align: center; border-collapse: collapse; margin-bottom: 15px;"><tr>`;
-                exam.traLoiNgan.forEach((q, idx) => {
-                    html += `<td style="border: 1px solid black; padding: 5px;"><b>Câu ${idx+1}</b><br>${q.correctAnswer || ''}</td>`;
-                    if ((idx + 1) % 5 === 0 && idx !== exam.traLoiNgan.length - 1) html += `</tr><tr>`;
-                });
-                html += `</tr></table>`;
-            }
-            return html;
         }
 
         function buildWordImageHtml(images, layout) {

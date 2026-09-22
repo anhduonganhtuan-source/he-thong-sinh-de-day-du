@@ -267,9 +267,6 @@
                         <button onclick="importBackup()" class="px-3 py-1.5 rounded bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm flex items-center shadow-sm transition whitespace-nowrap">
                             <i class="fas fa-upload mr-1"></i> Nhập file
                         </button>
-                        <button onclick="pullFromGitHub()" class="px-3 py-1.5 rounded bg-teal-600 hover:bg-teal-700 text-white font-bold text-sm flex items-center shadow-sm transition whitespace-nowrap" title="Lấy đề từ kho GitHub của bạn xuống máy tính này">
-                            <i class="fas fa-cloud-download-alt mr-1"></i> Tải từ mạng
-                        </button>
                         <input type="file" id="backup-file-input" class="hidden" accept=".json" onchange="handleImportBackup(event)">
                     </div>
 
@@ -745,50 +742,6 @@
             document.getElementById('sync-modal').classList.remove('hidden');
         }
         window.closeSyncModal = function() { document.getElementById('sync-modal').classList.add('hidden'); }
-
-        window.pullFromGitHub = async function() {
-            let repo = localStorage.getItem('gh_repo') || prompt("Nhập Tên Kho GitHub (Ví dụ: taikhoan/ten-kho):");
-            if (!repo) return;
-            localStorage.setItem('gh_repo', repo);
-
-            const btn = document.querySelector('button[onclick="pullFromGitHub()"]');
-            const originalHtml = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i> Tải...';
-            btn.disabled = true;
-
-            try {
-                const res = await fetch(`https://api.github.com/repos/${repo}/contents/data.json?v=${Date.now()}`);
-                if (!res.ok) throw new Error("Không tìm thấy file data.json");
-                
-                const data = await res.json();
-                const contentStr = decodeURIComponent(escape(window.atob(data.content)));
-                const importedData = JSON.parse(contentStr);
-
-                if (!Array.isArray(importedData)) throw new Error("Dữ liệu không hợp lệ");
-                
-                const confirmMerge = await showModal('Đã tìm thấy dữ liệu trên GitHub!\n\n- Chọn [Đồng ý]: GỘP đề trên mạng vào máy của bạn.\n- Chọn [Hủy]: XÓA ĐỀ TRONG MÁY và lấy 100% đề trên mạng thay thế.', 'Tải Đề Từ Mạng', true);
-                
-                if (confirmMerge) {
-                    const existingIds = new Set(window.questionBank.map(q => String(q.id))); let added = 0;
-                    importedData.forEach(q => { if (!existingIds.has(String(q.id))) { window.questionBank.push(q); added++; } });
-                    showModal(`Đã gộp thành công ${added} câu hỏi từ GitHub vào máy!`, 'Thành công');
-                } else {
-                    window.questionBank = importedData; 
-                    showModal('Đã thay thế toàn bộ đề trong máy bằng dữ liệu từ GitHub!', 'Thành công');
-                }
-
-                window.autoSortQuestionBank();
-                await localforage.setItem('chem_question_bank', window.questionBank);
-                renderQuestionList();
-
-            } catch (err) {
-                console.warn(err);
-                showModal("Không thể tải dữ liệu.\nĐảm bảo Tên kho nhập phải chính xác (taikhoan/ten-kho) và kho để Public.", "Lỗi Tải Đề");
-            } finally {
-                btn.innerHTML = originalHtml;
-                btn.disabled = false;
-            }
-        }
 
         window.syncToGitHub = async function() {
             if(window.questionBank.length === 0) { showModal('Ngân hàng câu hỏi đang trống!', 'Thông báo'); return; }

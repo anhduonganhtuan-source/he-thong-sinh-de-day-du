@@ -1,6 +1,406 @@
 [
   {
     "grade": "12",
+    "chapterId": "12_c2",
+    "unit": "12.2.1",
+    "type": "trac_nghiem",
+    "level": "NhanBiet",
+    "content": "Trong mật ong chứa nhiều monosaccharide X. Vị ngọt sắc của mật ong là do chất X gây ra. Trong phân tử X ở dạng mạch hở có nhóm ketone. Monosaccharide X có tên gọi là",
+    "subContent": "",
+    "standaloneImages": [],
+    "standaloneLayout": "row",
+    "standaloneScale": 100,
+    "answers": [
+      "Saccharose.",
+      "Glucose.",
+      "Fructose.",
+      "Maltose."
+    ],
+    "correctAnswer": 2,
+    "id": "Q_1790150446919"
+  },
+  {
+    "grade": "12",
+    "chapterId": "12_c2",
+    "unit": "12.2.1",
+    "type": "trac_nghiem",
+    "level": "ThongHieu",
+    "content": "<p><span lang=\"VI\">Nhận xét nào dưới đây không đúng khi nói về glucose và fructose?</span></p>",
+    "subContent": "",
+    "standaloneImages": [],
+    "standaloneLayout": "row",
+    "standaloneScale": 100,
+    "answers": [
+      "Đều xảy ra phản ứng tráng bạc khi tác dụng với thuốc thử Tollens.",
+      "Đều làm mất màu nước bromine.",
+      "Đều tạo được kết tủa đỏ gạch Cu<sub>2</sub>O khi tác dụng với Cu(OH)<sub>2</sub>, đun nóng trong môi trường kiềm.",
+      "Đều tạo được dung dịch màu xanh lam khi tác dụng với Cu(OH)<sub>2</sub>&nbsp;trong môi trường kiềm."
+    ],
+    "correctAnswer": 1,
+    "id": "Q_1790150398304"
+  },
+  {
+    "grade": "12",
+    "chapterId": "12_c2",
+    "unit": "12.2.2",
+    "type": "trac_nghiem",
+    "level": "ThongHieu",
+    "content": "Saccharose có bao nhiêu tính chất trong số các tính chất sau: tác dụng với&nbsp;Cu(OH)<sub>2</sub>/OH<sup>-</sup>,&nbsp;tác dụng với thuốc thử Tollens, tác dụng với nước bromine, thủy phân khi có xúc tác acid hoặc có mặt của enzyme?",
+    "subContent": "",
+    "standaloneImages": [],
+    "standaloneLayout": "row",
+    "standaloneScale": 100,
+    "answers": [
+      "3.",
+      "1.",
+      "4.",
+      "2."
+    ],
+    "correctAnswer": 3,
+    "id": "Q_1790150332905"
+  },
+  {
+    "grade": "12",
+    "chapterId": "12_c2",
+    "unit": "12.2.3",
+    "type": "trac_nghiem",
+    "level": "ThongHieu",
+    "content": "<p><span lang=\"VI\">Phát biểu nào đúng về các carbohydrate: glucose, fructose, saccharose, tinh bột, cellulose?</span></p>",
+    "subContent": "",
+    "standaloneImages": [],
+    "standaloneLayout": "row",
+    "standaloneScale": 100,
+    "answers": [
+      "Chỉ có tinh bột phản ứng được với nitric acid khi có mặt sulfuric acid đặc.",
+      "&nbsp;Chỉ có saccharose, tinh bột, cellulose bị thủy phân trong môi trường kiềm.",
+      "Chỉ có glucose, fructose, saccharose thể hiện tính chất hóa học của polyalcohol.",
+      "Chỉ có glucose thể hiện tính chất của nhóm carbonyl."
+    ],
+    "correctAnswer": 2,
+    "id": "Q_1790150071848"
+  },
+  {
+    "grade": "12",
+    "chapterId": "12_c2",
+    "unit": "12.2.2",
+    "type": "trac_nghiem",
+    "level": "NhanBiet",
+    "content": "<p><span lang=\"VI\">Carbohydrate nào sau đây có trong hoa quả, rau, củ, đặc biệt có nhiều trong thân cây mía, củ cải đường và hoa thốt nốt?</span></p>",
+    "subContent": "",
+    "standaloneImages": [],
+    "standaloneLayout": "row",
+    "standaloneScale": 100,
+    "answers": [
+      "Cellulose.&nbsp;<span lang=\"VI\">&nbsp;&nbsp;</span>",
+      "Saccharose.&nbsp;",
+      "Glucose.&nbsp;",
+      "Fructose."
+    ],
+    "correctAnswer": 1,
+    "id": "Q_1790150005799"
+  },
+  {
+    "grade": "12",
+    "chapterId": "12_c2",
+    "unit": "12.2.1",
+    "type": "trac_nghiem",
+    "level": "NhanBiet",
+    "content": "Chất nào sau đây thuộc loại monosaccharide?",
+    "subContent": "",
+    "standaloneImages": [],
+    "standaloneLayout": "row",
+    "standaloneScale": 100,
+    "answers": [
+      "cellulose.",
+      "saccharose.",
+      "glucose.",
+      "tinh bột."
+    ],
+    "correctAnswer": 2,
+    "id": "Q_1790149954899"
+  },
+  {
+    "grade": "12",
+    "chapterId": "12_c2",
+    "unit": "12.2.2",
+    "type": "trac_nghiem",
+    "level": "ThongHieu",
+    "content": "<p><span lang=\"VI\">Phát biểu nào sau đây đúng?</span></p>",
+    "subContent": "",
+    "standaloneImages": [],
+    "standaloneLayout": "row",
+    "standaloneScale": 100,
+    "answers": [
+      "Hai đơn vị α-glucose trong maltose liên kết với nhau bằng liên kết α-1,2-glycoside.",
+      "Saccharose và maltose có cùng công thức phân tử.",
+      "&nbsp;Phân tử maltose không có nhóm -OH hemiacetal.",
+      "Một phân tử saccharose gồm hai đơn vị α-glucose."
+    ],
+    "correctAnswer": 1,
+    "id": "Q_1790149886867"
+  },
+  {
+    "grade": "12",
+    "chapterId": "12_c2",
+    "unit": "12.2.1",
+    "type": "trac_nghiem",
+    "level": "VanDung",
+    "content": "<p><span lang=\"VI\">Cho các phát biểu sau về glucose và fructose:<o:p></o:p></span></p><p><span lang=\"VI\">(a) Cả glucose và fructose đều là chất rắn, dễ tan trong nước, có vị ngọt.<o:p></o:p></span></p><p><span lang=\"VI\">(b) Glucose có nhiều trong quả chín, fructose có nhiều trong mật ong.<o:p></o:p></span></p><p><span lang=\"VI\">(c) Dạng vòng của glucose chứa nhóm -OH hemiketal và dạng vòng của fructose chứa nhóm -OH hemiacetal.<o:p></o:p></span></p><p><span lang=\"VI\">(d) Glucose và fructose chuyển hóa qua lại lẫn nhau trong môi trường acid.<o:p></o:p></span></p><p><span lang=\"VI\">(e) Cho glucose và fructose vào thuốc thử Tollens đều thu được sản phẩm như nhau.<o:p></o:p></span></p><p><span lang=\"VI\">Số phát biểu đúng là<o:p></o:p></span></p>",
+    "subContent": "",
+    "standaloneImages": [],
+    "standaloneLayout": "row",
+    "standaloneScale": 100,
+    "answers": [
+      "2.",
+      "3.",
+      "4.",
+      "1."
+    ],
+    "correctAnswer": 1,
+    "id": "Q_1790149825720"
+  },
+  {
+    "grade": "12",
+    "chapterId": "12_c2",
+    "unit": "12.2.1",
+    "type": "trac_nghiem",
+    "level": "NhanBiet",
+    "content": "<p><span lang=\"VI\">Đặc điểm nào sau đây không phải đặc điểm chung cho glucose và fructose?</span></p>",
+    "subContent": "",
+    "standaloneImages": [],
+    "standaloneLayout": "row",
+    "standaloneScale": 100,
+    "answers": [
+      "đều hòa tan Cu(OH)<sub>2</sub>&nbsp;trong môi trường kiềm.",
+      "tồn tại cả dạng mạch hở và mạch vòng.",
+      "là hai đồng phân cấu tạo.&nbsp;",
+      "đều làm mất màu dung dịch bromine."
+    ],
+    "correctAnswer": 3,
+    "id": "Q_1790149779354"
+  },
+  {
+    "grade": "12",
+    "chapterId": "12_c2",
+    "unit": "12.2.2",
+    "type": "trac_nghiem",
+    "level": "VanDung",
+    "content": "<p style=\"text-align: justify;\"><span lang=\"VI\">Thủy phân m gam saccharose trong môi trường acid (hiệu suất phản ứng thủy phân 60%), trung hòa dung dịch sau phản ứng, sau đó thêm tiếp một lượng dư thuốc thử Tollens vào cho đến phản ứng hoàn toàn thì thu được 77,76 gam Ag kết tủa. Giá trị của m là</span></p>",
+    "subContent": "",
+    "standaloneImages": [],
+    "standaloneLayout": "row",
+    "standaloneScale": 100,
+    "answers": [
+      "61,56.&nbsp;<span lang=\"VI\">&nbsp;</span>",
+      "123,12.&nbsp;",
+      "94,05.&nbsp;",
+      "102,60."
+    ],
+    "correctAnswer": 3,
+    "id": "Q_1790149738753"
+  },
+  {
+    "grade": "12",
+    "chapterId": "12_c2",
+    "unit": "12.2.3",
+    "type": "trac_nghiem",
+    "level": "NhanBiet",
+    "content": "<p><span lang=\"VI\">Phát biểu nào sau đây đúng?</span></p>",
+    "subContent": "",
+    "standaloneImages": [],
+    "standaloneLayout": "row",
+    "standaloneScale": 100,
+    "answers": [
+      "Amylopectin trong tinh bột có cấu trúc mạch phân nhánh.",
+      "Phân tử cellulose được cấu tạo từ các đơn vị β-fructose.",
+      "Cellulose không tan trong nước, nhưng tan trong các dung môi thông thường như benzene, ether.",
+      "Saccharose tồn tại đồng thời cả dạng mạch vòng và mạch hở."
+    ],
+    "correctAnswer": 0,
+    "id": "Q_1790149676321"
+  },
+  {
+    "grade": "12",
+    "chapterId": "12_c2",
+    "unit": "12.2.2",
+    "type": "trac_nghiem",
+    "level": "NhanBiet",
+    "content": "<p><span lang=\"VI\">Trong các loại thực phẩm sau, loại nào chứa hàm lượng đường maltose cao nhất?</span></p>",
+    "subContent": "",
+    "standaloneImages": [],
+    "standaloneLayout": "row",
+    "standaloneScale": 100,
+    "answers": [
+      "sữa tươi.&nbsp;",
+      "mật ong.&nbsp;<span lang=\"VI\">&nbsp;</span>",
+      "mạch nha.&nbsp;",
+      "đường mía."
+    ],
+    "correctAnswer": 2,
+    "id": "Q_1790149604533"
+  },
+  {
+    "grade": "12",
+    "chapterId": "12_c2",
+    "unit": "12.2.3",
+    "type": "trac_nghiem",
+    "level": "NhanBiet",
+    "content": "<p><span lang=\"VI\">Chất nào dưới đây không tan được trong nước lạnh?</span></p>",
+    "subContent": "",
+    "standaloneImages": [],
+    "standaloneLayout": "row",
+    "standaloneScale": 100,
+    "answers": [
+      "&nbsp;tinh bột.&nbsp;<span lang=\"VI\">&nbsp;</span>",
+      "saccharose.&nbsp;",
+      "glucose.",
+      "fructose."
+    ],
+    "correctAnswer": 0,
+    "id": "Q_1790149549285"
+  },
+  {
+    "grade": "12",
+    "chapterId": "12_c2",
+    "unit": "12.2.3",
+    "type": "trac_nghiem",
+    "level": "VanDung",
+    "content": "<p><span lang=\"VI\">Cho các phát biểu sau đây:<o:p></o:p></span></p><p>(a) Glucose được gọi là đường nho do có nhiều trong quả nho chín.<o:p></o:p></p><p>(b) Chất béo là diester của glycerol với acid béo.<o:p></o:p></p><p>(c) Phân tử amylopectin có cấu trúc mạch phân nhánh.<o:p></o:p></p><p>(d) Ở nhiệt độ thường, triolein ở trạng thái rắn.<o:p></o:p></p><p>(e) Fructose có nhiều trong mật ong.<o:p></o:p></p><p>(f) Tinh bột là một trong những lương thực cơ bản của con người.<o:p></o:p></p><p>Số phát biểu đúng là<o:p></o:p></p>",
+    "subContent": "",
+    "standaloneImages": [],
+    "standaloneLayout": "row",
+    "standaloneScale": 100,
+    "answers": [
+      "5.",
+      "6.",
+      "3.",
+      "4."
+    ],
+    "correctAnswer": 3,
+    "id": "Q_1790149497253"
+  },
+  {
+    "grade": "12",
+    "chapterId": "12_c2",
+    "unit": "12.2.3",
+    "type": "trac_nghiem",
+    "level": "ThongHieu",
+    "content": "<p><span lang=\"VI\">Polysaccharide X là chất rắn, màu trắng, dạng sợi. Trong bông nõn có gần 98% chất X. Thủy phân X, thu được monosaccharide Y. Phát biểu nào sau đây đúng?</span></p>",
+    "subContent": "",
+    "standaloneImages": [],
+    "standaloneLayout": "row",
+    "standaloneScale": 100,
+    "answers": [
+      "Y có tính chất của alcohol đa chức.",
+      "X có phản ứng tráng bạc.",
+      "Phân tử khối của Y bằng 342.&nbsp;",
+      "X dễ tan trong nước."
+    ],
+    "correctAnswer": 0,
+    "id": "Q_1790149449089"
+  },
+  {
+    "grade": "12",
+    "chapterId": "12_c2",
+    "unit": "12.2.1",
+    "type": "trac_nghiem",
+    "level": "ThongHieu",
+    "content": "<p><span lang=\"VI\">Glucose hòa tan Cu(OH)</span><span lang=\"VI\"><sub>2</sub></span><span lang=\"VI\">&nbsp;ở nhiệt độ thường tạo dung dịch xanh lam. Phản ứng này thể hiện tính chất của loại nhóm chức nào trong glucose</span></p>",
+    "subContent": "",
+    "standaloneImages": [],
+    "standaloneLayout": "row",
+    "standaloneScale": 100,
+    "answers": [
+      "Tính chất polyalcohol.&nbsp;<span lang=\"VI\">&nbsp;&nbsp;</span>",
+      "Tính chất aldehyde.",
+      "Tính chất ketone.&nbsp;<span lang=\"VI\">&nbsp; &nbsp;</span>",
+      "Tính chất nhóm –OH hemiacetal"
+    ],
+    "correctAnswer": 0,
+    "id": "Q_1790149378143"
+  },
+  {
+    "grade": "12",
+    "chapterId": "12_c2",
+    "unit": "12.2.2",
+    "type": "trac_nghiem",
+    "level": "ThongHieu",
+    "content": "<p><span lang=\"VI\">Phát biểu nào sau đây là sai?</span></p>",
+    "subContent": "",
+    "standaloneImages": [],
+    "standaloneLayout": "row",
+    "standaloneScale": 100,
+    "answers": [
+      "Glucose và saccharose đều là carbohydrate.",
+      "Trong dung dịch, glucose và fructose đều hòa tan được Cu(OH)<sub><span lang=\"VI\">2</span></sub>.",
+      "Glucose và saccharose đều có phản ứng tráng bạc.",
+      "Glucose và fructose là đồng phân của nhau."
+    ],
+    "correctAnswer": 2,
+    "id": "Q_1790149329209"
+  },
+  {
+    "grade": "12",
+    "chapterId": "12_c2",
+    "unit": "12.2.3",
+    "type": "trac_nghiem",
+    "level": "NhanBiet",
+    "content": "Cellulose có cấu tạo mạch không phân nhánh, mỗi đơn vị&nbsp;C<sub>6</sub>H<sub>10</sub>O<sub>5</sub>&nbsp;có 3 nhóm OH, nên có thể viết là",
+    "subContent": "",
+    "standaloneImages": [],
+    "standaloneLayout": "row",
+    "standaloneScale": 100,
+    "answers": [
+      "[C<sub>6</sub>H<sub>5</sub>O<sub>2</sub>(OH)<sub>3</sub>]<sub>n</sub>.",
+      "[C<sub>6</sub>H<sub>8</sub>O<sub>2</sub>(OH)<sub>3</sub>]<sub>n</sub>.",
+      "[C<sub>6</sub>H<sub>7</sub>O<sub>2</sub>(OH)<sub>3</sub>]<sub>n</sub>.",
+      "[C<sub>6</sub>H<sub>7</sub>O<sub>3</sub>(OH)<sub>2</sub>]<sub>n</sub>."
+    ],
+    "correctAnswer": 2,
+    "id": "Q_1790149263079"
+  },
+  {
+    "grade": "12",
+    "chapterId": "12_c2",
+    "unit": "12.2.2",
+    "type": "trac_nghiem",
+    "level": "NhanBiet",
+    "content": "<p><span lang=\"VI\">Một phân tử saccharose có</span><span lang=\"VI\"><o:p></o:p></span></p>",
+    "subContent": "",
+    "standaloneImages": [],
+    "standaloneLayout": "row",
+    "standaloneScale": 100,
+    "answers": [
+      "một gốc β-glucose và một gốc β-fructose.",
+      "một gốc β-glucose và một gốc α-fructose.",
+      "hai gốc α-glucose.",
+      "một gốc α-glucose và một gốc β-fructose."
+    ],
+    "correctAnswer": 3,
+    "id": "Q_1790149211867"
+  },
+  {
+    "grade": "12",
+    "chapterId": "12_c2",
+    "unit": "12.2.1",
+    "type": "trac_nghiem",
+    "level": "NhanBiet",
+    "content": "Công thức phân tử của glucose là",
+    "subContent": "",
+    "standaloneImages": [],
+    "standaloneLayout": "row",
+    "standaloneScale": 100,
+    "answers": [
+      "<span lang=\"VI\">C<sub>6</sub>H<sub>12</sub>O<sub>6</sub>.</span>",
+      "<span lang=\"VI\">C<sub>6</sub>H<sub>10</sub>O<sub>5</sub>.</span>",
+      "<span lang=\"VI\">C<sub>3</sub>H<sub>6</sub>O<sub>2</sub>.</span>",
+      "<span lang=\"VI\">C<sub>12</sub>H<sub>22</sub>O<sub>11</sub>.</span>"
+    ],
+    "correctAnswer": 0,
+    "id": "Q_1790148974892"
+  },
+  {
+    "grade": "12",
     "chapterId": "12_c1",
     "unit": "12.1.2",
     "type": "tra_loi_ngan",
